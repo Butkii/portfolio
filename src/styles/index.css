@@ -9,9 +9,47 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F9F7F7;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hero-image {
+  height: auto;
+  width: 20rem;
+  top: 1rem;
+  right: 5rem;
+  position: relative;
+}
+
+  @media screen and (max-width:1000px) {
+    .hero-image {
+      top: 6rem;
+      width: 15rem;
+    }
+  }
+
+  @media screen and (max-width:700px) {
+    .hero-image {
+      display: none;
+    }
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 4rem;
+  }
+
+  h3 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
