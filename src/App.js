@@ -2,6 +2,11 @@ import React from 'react';
 import colors from './styles/colors';
 import Header from './components/Header';
 import Hero from './components/Hero';
+import Home from './pages/Home';
+import About from './pages/About';
+import Projects from './pages/Projects';
+import { BrowserRouter as Router, Routes, Route }
+    from 'react-router-dom';
 // import About from './components/About';
 // import Projects from './components/Projects';
 // import Resume from './components/Resume';
@@ -11,16 +16,15 @@ import Hero from './components/Hero';
 function App() {
   return (
     <div className={`bg-${colors.primary} text-black`}>
-      {/* <div className="text-3xl font-bold underline">Hello</div> */}
-      <Header />
-      <div className="container mx-auto p-4">
-        <Hero />
-        {/* <About />
-        <Projects />
-        <Resume />
-        <Contact />
-        <SocialLinks /> */}
-      </div> 
+      <Router>
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/projects" element={<Projects />} />
+        </Routes>
+        
+      </Router>
     </div>
   );
 }

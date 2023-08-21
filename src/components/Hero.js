@@ -10,15 +10,16 @@ function Hero() {
         <h1 className="font-bold font-heading mb-4">
           Bhakti Ghaghda
         </h1>
-        <p className="font-accent mb-6">
+        <h4 className="font-accent mb-6">
           Software developer with a love for coding, creativity, <br /> and making a positive impact.
-        </p>
-        <p className="font-accent">
+        </h4>
+        <h4 className="font-accent">
           Find out more <a href="#about" className="text-light-secondary"> about me </a> or <a href="#contact" className="text-light-secondary">get in touch</a>.
-        </p>
+        </h4>
+        
       </div>
       <div className="flex-shrink-0 md:ml-10 mt-0 flex items-center justify-center md:justify-start">
-        <img src="hero.svg" alt="Developer" className="hero-image" />
+        <image src="hero.svg" alt="Developer" className="hero-image" />
       </div>
     </div>
   );
