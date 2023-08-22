@@ -2,8 +2,8 @@ import React from 'react';
 
 function Hero() {
   return (
-    <div className="flex flex-row justify-between items-center p-10">
-      <div className="text-left text-light-primary mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
+    <div className="flex flex-row justify-between items-center px-20 py-10 mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
+      <div className="text-left text-light-primary p-10 mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
         <h3 className="font-semibold font-heading mb-2">
           Hi there 👋 I'm
         </h3>

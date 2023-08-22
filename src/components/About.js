@@ -3,7 +3,7 @@ import AboutMeIcons from './Icons';
 
 function AboutMe() {
     return(
-        <div className="flex flex-row justify-center items-center p-10 text-left text-light-primary mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
+        <div className="flex flex-row justify-center items-center px-10 py-0 text-left text-light-primary mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
             <div className="p-10 flex flex-col justify-center align-middle text-center max-w-xs">
                 <img
                     src="bhakti.jpeg" // Replace with your image source
@@ -20,7 +20,7 @@ function AboutMe() {
             </div>
             
             <div>
-                <p className="max-w-3xl p-10 pt-0">
+                <p className="max-w-3xl p-10 pt-0 text-justify">
                     I am a recent graduate of Murdoch University Dubai with a Bachelor of Science in Computer Science and Business Information Systems. I am passionate about using technology to solve real-world problems and make a positive impact on the world.
 
                     <br /><br />I have a strong academic background, with a GPA of 3.83/4.0. I am also a recipient of the Vice-Chancellor's Commendation for Academic Excellence and the Academic Merit Scholarship.
