@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Hero() {
   return (
@@ -14,7 +15,7 @@ function Hero() {
           Software developer with a love for coding, creativity, <br /> and making a positive impact.
         </h4>
         <h4 className="font-accent">
-          Find out more <a href="#about" className="text-light-secondary"> about me </a> or <a href="#contact" className="text-light-secondary">get in touch</a>.
+          Find out more <Link to="/about" className="text-light-secondary"> about me </Link> or <Link to="/contact" className="text-light-secondary">get in touch</Link>.
         </h4>
         
       </div>

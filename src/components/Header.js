@@ -13,7 +13,7 @@ function Header() {
     };
 
     return (
-        <nav className="px-4 py-3 md:px-14 md:py-8 font-body">
+        <nav className="px-4 py-3 md:px-14 md:py-8 font-body z-1000">
             <div className="hidden md:flex items-center justify-between">
                 <ul className="flex space-x-16 justify-center flex-grow text-light-primary text-lg font-semibold pl-20">
                     <li>
@@ -40,7 +40,7 @@ function Header() {
             </div>
 
             {/* Mobile View */}
-            <div className="md:hidden mt-4 ml-2">
+            <div className="md:hidden mt-4 ml-2 z-1000">
                 <button
                     className="text-light-secondary text-lg p-2"
                     onClick={toggleMenu}
