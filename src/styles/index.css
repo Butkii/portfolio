@@ -39,7 +39,8 @@ code {
 
   @media screen and (max-width:700px) {
     .hero-image {
-      display: none;
+      top: 4rem;
+      width: 10rem;
     }
 
     /* .text-left {

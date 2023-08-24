@@ -40,7 +40,7 @@ function Header() {
             </div>
 
             {/* Mobile View */}
-            <div className="md:hidden">
+            <div className="md:hidden mt-4 ml-2">
                 <button
                     className="text-light-secondary text-lg p-2"
                     onClick={toggleMenu}
@@ -66,7 +66,7 @@ function Header() {
                         menuOpen ? 'translate-x-0' : 'translate-x-full'
                     }`}
                 >
-                    <ul className="flex flex-col space-y-4 mt-12 ml-4">
+                    <ul className="flex flex-col space-y-4 mt-24 ml-6">
                         <li>
                             <Link to="/" className="text-light-primary text-xl font-semibold" onClick={closeMenu}>
                                 Home

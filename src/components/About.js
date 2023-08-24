@@ -4,8 +4,8 @@ import ResumePDF from '../assets/BhaktiGhaghda-CV.pdf';
 
 function AboutMe() {
     return(
-        <div className="flex flex-row justify-center items-center px-10 py-0 text-left text-light-primary mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
-            <div className="p-10 flex flex-col justify-center align-middle text-center max-w-xs">
+        <div className="flex flex-row justify-center items-center text-left text-light-primary lg:px-20 lg:py-10 py-5 lg:mr-20 mr-10 lg:mb-8 mb-0 lg:ml-4 ml-2">
+            <div className="flex flex-col justify-center align-middle text-center max-w-xs lg:p-10 p-5 lg:mr-20 mr-10 lg:mb-8 mb-0 ml-4">
                 <img
                     src="bhakti.jpeg" // Replace with your image source
                     alt="Circular"
