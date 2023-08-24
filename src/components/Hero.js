@@ -3,7 +3,7 @@ import React from 'react';
 function Hero() {
   return (
     <div className="flex flex-row justify-between items-center px-20 py-10 mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
-      <div className="text-left text-light-primary p-10 mr-20 md:mr-10 mb-8 md:mb-0 ml-4">
+      <div className="text-left text-light-primary p-10 mr-20 md:mr-10 mb-8 md:mb-0 ml-4 md:ml-0">
         <h3 className="font-semibold font-heading mb-2">
           Hi there 👋 I'm
         </h3>
@@ -19,7 +19,7 @@ function Hero() {
         
       </div>
       <div className="flex-shrink-0 md:ml-10 mt-0 flex items-center justify-center md:justify-start">
-        <image src="hero.svg" alt="Developer" className="hero-image" />
+        <img src="hero.svg" alt="Developer" className="hero-image" />
       </div>
     </div>
   );

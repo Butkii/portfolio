@@ -1,66 +1,37 @@
 import React, { useState } from 'react';
+import { FaEnvelope } from 'react-icons/fa';
 
-function ContactForm() {
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: ''
-    });
+function ContactMe() {
+  const [copySuccess, setCopySuccess] = useState(false);
 
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setFormData((prevData) => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
+  const handleEmailButtonClick = () => {
+    const email = 'youremail@example.com';
+    const subject = encodeURIComponent('Let\'s Chat');
+    const body = encodeURIComponent('Hello! I\'d love to have a conversation with you.');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Handle form submission logic here
-        console.log(formData); // For demonstration purposes
-    };
+    if (navigator && navigator.clipboard) {
+      navigator.clipboard.writeText(email);
+      setCopySuccess(true);
+    } else {
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    }
+  };
 
-    return (
-        <form onSubmit={handleSubmit} className="contact-form">
-            <div className="form-group">
-                <label htmlFor="name">Name</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                />
-            </div>
-            <div className="form-group">
-                <label htmlFor="message">Message</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows="4"
-                    required
-                />
-            </div>
-            <button type="submit" className="submit-button">
-                Submit
-            </button>
-        </form>
-    );
+  return (
+    <div className="contact-container">
+      <div className="text-container">
+        <h5 className="mb-6 font-semibold">I'm always available to chat. Feel free to send me an email!</h5>
+        <button
+          className="bg-light-accent text-light-secondary text-lg px-4 py-2 rounded-lg font-semibold"
+          onClick={handleEmailButtonClick}
+        >
+          <FaEnvelope className="text-center" />
+          Email Me
+        </button>
+        {copySuccess && <p className="text-light-secondary mt-2">Email address copied to clipboard!</p>}
+      </div>
+    </div>
+  );
 }
 
-export default ContactForm;
+export default ContactMe;

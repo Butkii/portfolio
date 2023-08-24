@@ -1,5 +1,6 @@
 import React from 'react';
 import AboutMeIcons from './Icons';
+import ResumePDF from '../assets/BhaktiGhaghda-CV.pdf';
 
 function AboutMe() {
     return(
@@ -29,7 +30,13 @@ function AboutMe() {
 
                     <br /><br />In addition to my technical skills, I am also a strong communicator and team player. I am always willing to learn new things and take on challenges. I am also passionate about working for childhood cancer awareness, mental health, and gender equality.
                     
-                    <br /><br /><button className="bg-light-secondary text-light-background text-lg px-4 py-1 rounded-lg font-semibold">Resume</button>
+                    <br /><br />
+                    <a
+                    href={ResumePDF}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-light-secondary text-light-background text-lg px-4 py-1 rounded-lg font-semibold"
+                    >Resume</a>
                 </p>
             </div>
         </div>            

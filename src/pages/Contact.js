@@ -1,12 +1,12 @@
 import React from "react";
 import Title from "../components/Title";
-import ContactForm from "../components/ContactForm";
+import ContactMe from "../components/ContactForm";
 
 const Contact = () => {
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 flex-column justify-center">
             <Title title="Contact Me" />
-            <ContactForm />
+            <ContactMe />
         </div>
     );
 };
