@@ -37,7 +37,7 @@ const BoxGrid = () => {
   ];
 
   return (
-    <div className="box-grid px-60 mx-10 pt-4">
+    <div className="box-grid lg:px-60 px-10 lg:mx-10 lg:pt-4">
       {boxes.map((box, index) => (
         <div key={index} className="box">
           <div className="box-title">{box.title}</div>
