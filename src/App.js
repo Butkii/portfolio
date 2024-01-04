@@ -1,5 +1,4 @@
 import React from 'react';
-import colors from './styles/colors';
 import Header from './components/Header';
 // import Hero from './components/Hero';
 import Home from './pages/Home';
@@ -8,6 +7,7 @@ import Projects from './pages/Projects';
 import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Contact from './pages/Contact';
+import { useMode } from './ModeContext';
 // import About from './components/About';
 // import Projects from './components/Projects';
 // import Resume from './components/Resume';
@@ -15,8 +15,9 @@ import Contact from './pages/Contact';
 // import SocialLinks from './components/SocialLinks';
 
 function App() {
+  const { mode } = useMode();
   return (
-    <div className={`bg-${colors.primary} text-black`}>
+    <div className={`min-h-screen ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'} text-black`}>
       <Router>
         <Header />
         <Routes>
@@ -25,7 +26,6 @@ function App() {
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/contact" element={<Contact/>} />
         </Routes>
-        
       </Router>
     </div>
   );

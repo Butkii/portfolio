@@ -1,8 +1,9 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
-
+import { useMode } from '../ModeContext';
 
 const BoxGrid = () => {
+  const {mode } = useMode();
   const boxes = [
     { 
         title: 'Etch-A-Sketch', 
@@ -37,12 +38,12 @@ const BoxGrid = () => {
   ];
 
   return (
-    <div className="box-grid lg:px-60 px-10 lg:mx-10 lg:pt-4">
+    <div className="box-grid lg:px-60 px-10 lg:mx-10 lg:pt-4`">
       {boxes.map((box, index) => (
-        <div key={index} className="box">
-          <div className="box-title">{box.title}</div>
-          <div className="box-text">{box.text}</div>
-          <a href={box.link} target="_blank" rel="noopener noreferrer" className="box-button">
+        <div key={index} className={`box ${mode === 'light' ? 'bg-light-accent' : 'bg-dark-accent'}`}>
+          <div className={`box-title ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'}`}>{box.title}</div>
+          <div className={`box-text ${mode === 'light' ? 'text-light-secondary' : 'text-dark-secondary'}`}>{box.text}</div>
+          <a href={box.link} target="_blank" rel="noopener noreferrer" className={`box-button ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'}`}>
             <FaArrowRight />
           </a>
         </div>
