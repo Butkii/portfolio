@@ -6,15 +6,15 @@ module.exports = {
       colors: {
         'light': {
           'background': '#F9F7F7',
-          'primary': '#112D4E',
-          'secondary': '#3F72AF',
+          'primary': '#0b1e36',
+          'secondary': '#446894',
           'accent': '#DBE2EF',
         },
         'dark': {
-          'background': '#112D4E',
+          'background': '#0b1e36',
           'primary': '#F9F7F7',
           'secondary': '#DBE2EF',
-          'accent': '#3F72AF',
+          'accent': '#446894',
         },
       },
       fontFamily: {

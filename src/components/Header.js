@@ -74,6 +74,11 @@ function Header() {
                 >
                     <ul className="flex flex-col space-y-4 mt-24 ml-6">
                         <li>
+                            <button onClick={toggleMode}>
+                                {mode === 'dark' ? <FaToggleOn size={30} color="white"/> : <FaToggleOff size={30}/>}
+                            </button>
+                        </li>
+                        <li>
                             <Link to="/" className={`${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} text-xl font-semibold`} onClick={closeMenu}>
                                 Home
                             </Link>
@@ -89,14 +94,9 @@ function Header() {
                             </Link>
                         </li>
                         <li>
-                            <Link to="/contact" className="text-light-primary text-xl font-semibold" onClick={closeMenu}>
+                            <Link to="/contact" className={`${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} text-xl font-semibold`} onClick={closeMenu}>
                                 Contact
                             </Link>
-                        </li>
-                        <li>
-                            <button onClick={toggleMode}>
-                                {mode === 'dark' ? <FaToggleOn /> : <FaToggleOff />}
-                            </button>
                         </li>
                     </ul>
                 </div>
