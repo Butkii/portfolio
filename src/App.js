@@ -17,17 +17,29 @@ import { useMode } from './ModeContext';
 function App() {
   const { mode } = useMode();
   return (
-    <div className={`min-h-screen ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'} text-black`}>
-      <Router>
-        <Header />
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/projects" element={<Projects />} />
-          <Route exact path="/contact" element={<Contact/>} />
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <Helmet>
+        <title>Bhakti Ghaghda</title>
+        <meta name="description" content="Bhakti Ghaghda is a software engineer with a double major in Computer Science and Business Information Systems" />
+        <meta name="type" content="website" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+          ></meta>
+      </Helmet>
+      <div className={`min-h-screen ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'} text-black`}>
+        <Router>
+          <Header />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/about" element={<About />} />
+            <Route exact path="/projects" element={<Projects />} />
+            <Route exact path="/contact" element={<Contact/>} />
+          </Routes>
+        </Router>
+      </div>
+    </>
+    
   );
 }
 

@@ -22,8 +22,13 @@ function Hero() {
         </h4>
       </div>
       <div className="flex-shrink-0 ml-10 mt-0 flex items-center lg:justify-center justify-start">
-        <img src="hero.svg" alt="Developer" className="hero-image" />
+        <img
+          src={`heroimg-${mode === 'light' ? 'light' : 'dark'}.svg`}
+          alt="Developer"
+          className="hero-image"
+        />
       </div>
+
     </div>
   );
 }
