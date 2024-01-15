@@ -7,8 +7,8 @@ function AboutMe() {
     const { mode } = useMode();
 
     return (
-        <div className={`flex lg:flex-row flex-col justify-center items-center text-left ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} lg:px-20 lg:py-10 py-5 lg:mr-20 mr-10 lg:mb-8 mb-0 lg:ml-4 ml-2`}>
-            <div className={`flex flex-col justify-center align-middle text-center max-w-xs ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} lg:p-10 p-5 lg:mr-20 mr-10 lg:mb-8 mb-0 lg:ml-4`}>
+        <div className={`flex lg:flex-row flex-col justify-center items-center text-left ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} lg:px-20 lg:py-10 py-5 lg:mr-20 mr-0 lg:mb-8 mb-0 lg:ml-4 ml=0`}>
+            <div className={`flex flex-col justify-center align-middle text-center max-w-xs ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} lg:p-10 p-5 lg:mr-20 mr-0 lg:mb-8 mb-0 lg:ml-4`}>
                 <img
                     src="bhakti.jpeg" 
                     alt="Bhakti Ghaghda"

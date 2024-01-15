@@ -28,14 +28,17 @@ function App() {
           ></meta>
         <meta name="image" content="bhakti.jpeg" />
       </Helmet>
+      
       <div className={`min-h-screen ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'} text-black`}>
         <Router>
           <header className="sticky top-0 z-50">
             <Header />
           </header>
-          <div id="home" className='sm:my-28'>
-            <Home />
+          <div className='md:hidden h-20'></div>
+          <div id="home">
+            <Home/>
           </div>
+          <div className='md:hidden h-52'></div>
           <div id="about">
             <About />
           </div>

@@ -21,7 +21,7 @@ function ContactMe() {
 
   return (
     <div className={`contact-container ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'}`}>
-      <div className="text-container">
+      <div className="lg:px-60 px-10 lg:mx-10 lg:pt-4 md:text-center">
         <h5 className={`mb-6 font-semibold ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'}`}>
           I'm always available to chat. Feel free to send me an email!
         </h5>

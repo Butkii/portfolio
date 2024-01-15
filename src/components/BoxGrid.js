@@ -38,7 +38,7 @@ const BoxGrid = () => {
   ];
 
   return (
-    <div className="box-grid lg:px-60 px-10 lg:mx-10 lg:pt-4`">
+    <div className="box-grid lg:px-60 px-10 lg:mx-10 lg:pt-4">
       {boxes.map((box, index) => (
         <div key={index} className={`box ${mode === 'light' ? 'bg-light-accent' : 'bg-dark-accent'}`}>
           <div className={`box-title ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'}`}>{box.title}</div>
