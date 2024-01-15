@@ -4,7 +4,7 @@ import BoxGrid from '../components/BoxGrid';
 
 const Projects = () => {
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 py-14">
             <Title title="Projects" />
             <BoxGrid />
         </div>

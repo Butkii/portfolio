@@ -2,9 +2,22 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaToggleOff, FaToggleOn } from "react-icons/fa";
 import { useMode } from '../ModeContext';
-   
+   import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function Header() {
+    const location = useLocation();
+
+    useEffect(() => {
+        const hash = location.hash;
+        if (hash) {
+        const targetElement = document.querySelector(hash);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+        }
+    }, [location.hash]);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const { mode, toggleMode } = useMode();
     const toggleMenu = () => {
@@ -18,20 +31,20 @@ function Header() {
     const navItems = [
         {
             name: 'Home',
-            link: '/',
+            link: '/#home',
         },
         {
             name: 'About',
-            link: '/about',
+            link: '/#about',
         },
         {
             name: 'Projects',
-            link: '/projects',
+            link: '/#projects',
         },
     ]
 
     return (
-        <nav className="px-4 py-3 md:px-14 md:py-8 font-body z-1000">
+        <nav className={`px-4 py-3 md:px-14 md:py-8 font-body z-1000 ${mode === 'light' ? 'bg-light-background' : 'bg-dark-background'}`}>
             <div className="hidden md:flex items-center justify-between">
                 <button onClick={toggleMode}>
                     {mode === 'dark' ? <FaToggleOn size={30} color="white"/> : <FaToggleOff size={30}/>}
@@ -45,7 +58,7 @@ function Header() {
                         </li>
                     })}
                 </ul>
-                <Link to="/contact">
+                <Link to="/#contact">
                     <button className={`${mode === 'light' ? 'bg-light-secondary text-light-background' : 'bg-dark-secondary text-dark-background'}  text-lg px-4 py-1 rounded-lg font-semibold`}>
                         Contact
                     </button>
@@ -95,7 +108,7 @@ function Header() {
                             )
                         })}
                         <li>
-                            <Link to="/contact" onClick={closeMenu}>
+                            <Link to="/#contact" onClick={closeMenu}>
                                 Contact
                             </Link>
                         </li>

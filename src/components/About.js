@@ -11,7 +11,7 @@ function AboutMe() {
             <div className={`flex flex-col justify-center align-middle text-center max-w-xs ${mode === 'light' ? 'text-light-primary' : 'text-dark-primary'} lg:p-10 p-5 lg:mr-20 mr-10 lg:mb-8 mb-0 lg:ml-4`}>
                 <img
                     src="bhakti.jpeg" 
-                    alt="Circular"
+                    alt="Bhakti Ghaghda"
                     className="circular-image"
                 />
                 <h4 className="font-bold">

@@ -4,7 +4,7 @@ import AboutMe from "../components/About";
 
 const About = () => {
     return (
-        <div className="container mx-auto p-4">
+        <div className="container mx-auto p-4 py-2">
             <Title title="About" />
             <AboutMe />
         </div>
