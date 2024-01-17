@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './components/Header';
-// import Hero from './components/Hero';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import About from './pages/About';
 import Projects from './pages/Projects';
@@ -8,11 +8,6 @@ import { BrowserRouter as Router, Routes, Route }
     from 'react-router-dom';
 import Contact from './pages/Contact';
 import { useMode } from './ModeContext';
-// import About from './components/About';
-// import Projects from './components/Projects';
-// import Resume from './components/Resume';
-// import Contact from './components/Contact';
-// import SocialLinks from './components/SocialLinks';
 import { Helmet } from 'react-helmet';
 function App() {
   const { mode } = useMode();
@@ -48,6 +43,9 @@ function App() {
           <div id="contact">
             <Contact />
           </div>
+          <footer className="sticky top-0 z-50">
+            <Footer />
+          </footer>
           <Routes>
             <Route exact path="/#home" element={<Home />} />
             <Route exact path="/#about" element={<About />} />

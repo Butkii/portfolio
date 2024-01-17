@@ -18,7 +18,7 @@ function Hero() {
           Software developer with a love for coding, creativity, <br /> and making a positive impact.
         </h4>
         <h4 className="font-accent">
-          Find out more <Link to="/about" className={`${mode === 'light' ? 'text-light-secondary' : 'text-dark-secondary'}`}> about me </Link> or <Link to="/contact" className={`${mode === 'light' ? 'text-light-secondary' : 'text-dark-secondary'}`}>get in touch</Link>.
+          Find out more <Link to="/#about" className={`${mode === 'light' ? 'text-light-secondary' : 'text-dark-secondary'}`}> about me </Link> or <Link to="/#contact" className={`${mode === 'light' ? 'text-light-secondary' : 'text-dark-secondary'}`}>get in touch</Link>.
         </h4>
       </div>
       <div className="flex-shrink-0 ml-10 mt-0 flex items-center justify-center">
