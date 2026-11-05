@@ -1,6 +1,7 @@
 // Build step: render each page to static HTML so crawlers and link previews
 // see real content, then write per-page <head> tags, a sitemap and a 404 page.
 import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 
@@ -8,6 +9,17 @@ const dist = path.resolve('dist');
 const ssr = path.resolve('dist-ssr');
 const { render, PAGES, SITE, urlFor } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
 const template = await readFile(path.join(dist, 'index.html'), 'utf8');
+
+// The CSP in vercel.json allows the inline theme script by hash; fail the
+// build if that script changes without the hash being updated.
+{
+  const inline = [...template.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+  const vercel = await readFile(path.resolve('vercel.json'), 'utf8');
+  for (const code of inline) {
+    const hash = `'sha256-${createHash('sha256').update(code).digest('base64')}'`;
+    if (!vercel.includes(hash)) throw new Error(`prerender: inline script hash ${hash} is missing from the CSP in vercel.json`);
+  }
+}
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const setTag = (html, re, value) => {

@@ -20,7 +20,7 @@ export const PAGES = {
   art: {
     title: 'PellucidWorks · Art by Bhakti Ghaghda',
     description:
-      'PellucidWorks is the painting practice of Bhakti Ghaghda: pointillism, watercolor, gouache and acrylic, exhibited at Dubai International Art Centre.',
+      'PellucidWorks is the art practice of Bhakti Ghaghda: pointillism, watercolor, gouache and acrylic, exhibited at Dubai International Art Centre.',
   },
   contact: {
     title: 'Contact · Bhakti Ghaghda',

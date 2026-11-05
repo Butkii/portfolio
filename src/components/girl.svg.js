@@ -39,16 +39,17 @@ const S = [
   // plant pot (the plant itself is in Plant.jsx)
   { t: 'path', a: { d: 'M42 376 L52 330 L84 330 L94 376 Z' } },
 
-  // chair
-  { t: 'path', a: { d: 'M100 262 L86 160 L98 158 L112 262 Z' } },
+  // chair (back and base; the seat is drawn after her legs so it shows beneath her)
+  { t: 'path', a: { d: 'M101 282 L86 160 L98 158 L113 282 Z' } },
   { t: 'path', a: { d: 'M135 344 L102 372 M135 344 L168 372 M135 344 L135 374' }, fill: 'none' },
-  { t: 'rect', a: { x: 131, y: 272, width: 8, height: 72 } },
-  { t: 'rect', a: { x: 96, y: 262, width: 78, height: 10, rx: 4 } },
+  { t: 'rect', a: { x: 131, y: 287, width: 8, height: 57 } },
 
   // trousers + shoe
   { t: 'path', a: { d: 'M212 258 L236 262 L246 352 L226 354 Z' } },
   { t: 'path', a: { d: 'M112 252 Q150 244 228 256 L236 276 Q170 282 118 276 Z' } },
   { t: 'path', a: { d: 'M222 350 L250 348 Q268 352 268 362 L222 364 Z' }, fill: 'ink' },
+  // chair seat, under her thighs
+  { t: 'rect', a: { x: 90, y: 277, width: 92, height: 10, rx: 4 } },
 
   // torso (sweater) + ribbing
   { t: 'path', a: { d: 'M120 262 Q108 214 130 182 Q146 166 170 168 Q196 172 200 196 L196 236 Q186 262 150 266 Z' } },
@@ -59,18 +60,20 @@ const S = [
   { t: 'path', a: { d: 'M158 186 Q172 212 188 232 L244 226 L246 238 L186 246 Q164 222 146 196 Z' } },
   { t: 'path', a: { d: 'M244 226 Q256 223 261 229 L252 237 L246 238 Z' } },
 
-  // neck, head, face
+  // neck
   { t: 'path', a: { d: 'M160 148 L176 148 L178 172 L160 174 Z' } },
-  { t: 'ellipse', a: { cx: 174, cy: 124, rx: 27, ry: 31 } },
-  { t: 'path', a: { d: 'M198 116 L206 132 L198 135' } },
-  { t: 'ellipse', a: { cx: 190, cy: 120, rx: 2.4, ry: 2.8, class: 'eye' }, fill: 'ink', w: 0.6 },
-  { t: 'path', a: { d: 'M185 112 Q190 109 196 112' }, fill: 'none' },
-  { t: 'path', a: { d: 'M194 143 Q197 145 200 143' }, fill: 'none' },
 
-  // hair, bun, pencil
-  { t: 'path', a: { d: 'M132 82 L166 108' }, fill: 'none', w: 2.4 },
-  { t: 'circle', a: { cx: 148, cy: 96, r: 16 }, fill: 'ink' },
-  { t: 'path', a: { d: 'M146 132 Q140 96 168 90 Q196 86 202 110 Q192 100 180 104 Q166 108 162 122 Q158 134 160 148 Q150 146 146 132 Z' }, fill: 'ink' },
+  // head, face and hair
+  { grp: 'head', children: [
+    { t: 'path', a: { d: 'M132 82 L166 108' }, fill: 'none', w: 2.4 },
+    { t: 'circle', a: { cx: 148, cy: 96, r: 16 }, fill: 'ink' },
+    { t: 'ellipse', a: { cx: 174, cy: 124, rx: 27, ry: 31 } },
+    { t: 'path', a: { d: 'M198 116 L206 132 L198 135' } },
+    { t: 'ellipse', a: { cx: 190, cy: 120, rx: 2.4, ry: 2.8, class: 'eye' }, fill: 'ink', w: 0.6 },
+    { t: 'path', a: { d: 'M185 112 Q190 109 196 112' }, fill: 'none' },
+    { t: 'path', a: { d: 'M187 141 Q190.5 142.5 194 140.5' }, fill: 'none' },
+    { t: 'path', a: { d: 'M146 132 Q140 96 168 90 Q196 86 202 110 Q192 100 180 104 Q166 108 162 122 Q158 134 160 148 Q150 146 146 132 Z' }, fill: 'ink' },
+  ] },
 
   // desk
   { t: 'rect', a: { x: 198, y: 248, width: 8, height: 128 } },
@@ -99,11 +102,13 @@ const shape = (s) => {
   return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(n++ * 0.7)}"/>`;
 };
 
-export const LINE_MARKUP = S.map((s) =>
-  s.obj
-    ? `<g class="obj obj-${s.obj}" style="--k:${s.k}">${s.children.map(shape).join('')}</g>`
-    : shape(s)
-).join('');
+const child = (c) => (c.raw ? c.raw : shape(c));
+
+export const LINE_MARKUP = S.map((s) => {
+  if (s.obj) return `<g class="obj obj-${s.obj}" style="--k:${s.k}">${s.children.map(child).join('')}</g>`;
+  if (s.grp) return `<g class="${s.grp}">${s.children.map(child).join('')}</g>`;
+  return shape(s);
+}).join('');
 
 // Warm light, rendered behind the drawing so paper-filled shapes sit on top.
 export const GLOW_MARKUP = `

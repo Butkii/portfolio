@@ -36,6 +36,7 @@ export default function Scene({ active, onOpen }) {
 
 
 
+
   // Eye follows the cursor.
   useEffect(() => {
     const svg = ref.current;
@@ -93,6 +94,7 @@ export default function Scene({ active, onOpen }) {
         aria-hidden="true"
         dangerouslySetInnerHTML={{ __html: LAMP_MARKUP }}
       />
+
 
 
       {HOTSPOTS.map((h) => (

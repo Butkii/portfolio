@@ -105,6 +105,6 @@ export const education = [
 export const art = {
   name: 'PellucidWorks',
   intro:
-    'PellucidWorks is my painting practice. I work in watercolor, gouache, acrylic and mixed media, and pointillism, built up dot by dot, is now the centre of the work. Recurring subjects are birds, lanterns and quiet scenes from the places I live and travel.',
+    'PellucidWorks is my art practice. I work in watercolor, gouache, acrylic and mixed media, and pointillism, built up dot by dot, is now the centre of the work. Recurring subjects are birds, lanterns and quiet scenes from the places I live and travel.',
   handle: '@pellucidworks',
 };
