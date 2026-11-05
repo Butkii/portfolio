@@ -10,6 +10,7 @@
   --vermilion: #d9482f;
   --ochre: #d99a2b;
   --viridian: #2f7d6b;
+  --leaf: #4f9a3e;
   --pm: var(--ultramarine);
   --fe: var(--viridian);
   --de: var(--vermilion);
@@ -22,13 +23,13 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
     --paper: #15140f; --paper-2: #1e1c16; --ink: #efe8da; --ink-2: #c9c1b2; --muted: #8f877a; --line: #34302a;
-    --ultramarine: #6f8ff0; --vermilion: #f0705a; --ochre: #ecb54d; --viridian: #5bb39c;
+    --ultramarine: #6f8ff0; --vermilion: #f0705a; --ochre: #ecb54d; --viridian: #5bb39c; --leaf: #8ccc6e;
     color-scheme: dark;
   }
 }
 :root[data-theme='dark'] {
   --paper: #15140f; --paper-2: #1e1c16; --ink: #efe8da; --ink-2: #c9c1b2; --muted: #8f877a; --line: #34302a;
-  --ultramarine: #6f8ff0; --vermilion: #f0705a; --ochre: #ecb54d; --viridian: #5bb39c;
+  --ultramarine: #6f8ff0; --vermilion: #f0705a; --ochre: #ecb54d; --viridian: #5bb39c; --leaf: #8ccc6e;
   color-scheme: dark;
 }
 
@@ -131,8 +132,8 @@ button { font: inherit; color: inherit; }
 /* plant: on hover it turns green and sways from the base of its stems */
 .illo .plant { transform-box: fill-box; transform-origin: 50% 100%; }
 .illo .plant [pathLength] { transition: color 0.4s ease, fill 0.4s ease; }
-.illo .plant:hover { color: var(--viridian); animation: sway 2.6s ease-in-out infinite; }
-.illo .plant:hover ellipse { fill: color-mix(in srgb, var(--viridian) 16%, var(--paper)); }
+.illo .plant:hover { color: var(--leaf); animation: sway 2.6s ease-in-out infinite; }
+.illo .plant:hover ellipse { fill: color-mix(in srgb, var(--leaf) 26%, var(--paper)); }
 @keyframes sway { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(2.2deg); } 70% { transform: rotate(-1.8deg); } }
 
 /* hovered / open object turns vermilion */
