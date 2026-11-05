@@ -37,6 +37,14 @@ export const experience = [
     line: 'Led product for a B2B data API, from strategy and pricing to enterprise features, and built parts of it myself.',
   },
   {
+    company: 'TexAu',
+    link: 'https://texau.com',
+    title: 'Software Engineer → Product',
+    dates: '2024 – 2026',
+    tags: ['PM', 'Frontend'],
+    line: 'Joined as a software engineer and moved into product, working across the company\u2019s products, including RichAPI and Visalaw.ai.',
+  },
+  {
     company: 'Visalaw.ai',
     note: 'at TexAu',
     link: 'https://www.visalaw.ai',
