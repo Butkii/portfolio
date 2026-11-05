@@ -85,9 +85,9 @@ const S = [
   { t: 'rect', a: { x: 370, y: 248, width: 8, height: 128 }, line: true },
   { t: 'rect', a: { x: 190, y: 240, width: 196, height: 8 }, line: true },
 
-  // laptop (Work)
-  { t: 'path', a: { d: 'M232 232 L330 232 L334 240 L228 240 Z', class: 'obj-work' }, line: true },
-  { t: 'path', a: { d: 'M322 237 L346 152 L354 154 L330 239 Z', class: 'obj-work' }, line: true },
+  // laptop (Tech)
+  { t: 'path', a: { d: 'M232 232 L330 232 L334 240 L228 240 Z', class: 'obj-tech' }, line: true },
+  { t: 'path', a: { d: 'M322 237 L346 152 L354 154 L330 239 Z', class: 'obj-tech' }, line: true },
 
   // mug (Contact)
   { t: 'path', a: { d: 'M378 218 Q390 220 388 228 Q386 236 377 234', class: 'obj-contact' }, line: true, fill: 'none' },

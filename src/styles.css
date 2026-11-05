@@ -128,7 +128,7 @@ button { font: inherit; color: inherit; }
 }
 
 /* hovered / open object turns vermilion */
-.scene[data-hover='work'] .obj-work,
+.scene[data-hover='tech'] .obj-tech,
 .scene[data-hover='art'] .obj-art,
 .scene[data-hover='about'] .obj-about,
 .scene[data-hover='contact'] .obj-contact { color: var(--vermilion); stroke-width: 2; }

@@ -18,13 +18,13 @@ The site is one screen: a line drawing of a desk that doubles as the navigation.
 
 | Object | Opens |
 |---|---|
-| Laptop | Work |
+| Laptop | Tech |
 | Framed diploma | About (bio, what I do, education) |
 | Easel | Art (live Instagram profile embed for @pellucidworks) |
 | Mug | Contact |
 | Lamp | Switches the light on and off |
 
-Panels slide in from the right (a bottom sheet on phones). Each panel has its own URL (`/#work`, `/#about`, `/#art`, `/#contact`). Esc, the close button or Back closes it. The top menu reaches the same panels without the drawing.
+Panels slide in from the right (a bottom sheet on phones). Each panel has its own URL (`/#tech`, `/#about`, `/#art`, `/#contact`). Esc, the close button or Back closes it. The top menu reaches the same panels without the drawing.
 
 - `src/components/girl.svg.js`: the drawing, as a list of shapes. `obj-*` classes mark the clickable objects.
 - `src/components/Scene.jsx`: hotspots, hover highlights, the intro label tour, eye tracking and the lamp.
@@ -33,6 +33,6 @@ Panels slide in from the right (a bottom sheet on phones). Each panel has its ow
 
 ## Editing content
 
-All copy lives in [`src/content.js`](src/content.js): bio, the work rows (with links to the live products), skills, education and the art intro.
+All copy lives in [`src/content.js`](src/content.js): bio, the tech rows (with links to the live products), skills, education and the art intro.
 
 Outstanding content gaps are listed in [CONTENT-TODO.md](CONTENT-TODO.md).

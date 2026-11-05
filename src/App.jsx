@@ -5,8 +5,8 @@ import InstagramProfile from './components/InstagramProfile';
 import { profile, positioning, TAGS, experience, skills, education, art } from './content';
 
 const IDS = HOTSPOTS.map((h) => h.id);
-const TITLES = { work: 'Work', about: 'About', art: 'Art', contact: 'Contact' };
-const MENU = ['work', 'about', 'art', 'contact'];
+const TITLES = { tech: 'Tech', about: 'About', art: 'Art', contact: 'Contact' };
+const MENU = ['tech', 'about', 'art', 'contact'];
 
 function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -23,7 +23,7 @@ function useTheme() {
   return () => setTheme(isDark() ? 'light' : 'dark');
 }
 
-// Open panel is mirrored in the URL hash, so #work etc. are shareable and Back closes it.
+// Open panel is mirrored in the URL hash, so #tech etc. are shareable and Back closes it.
 function useHashPanel() {
   const read = () => {
     const h = window.location.hash.slice(1);
@@ -54,7 +54,7 @@ function Dots({ tags }) {
   );
 }
 
-function Work() {
+function Tech() {
   return (
     <>
       <h2 className="p-title">{positioning}</h2>
@@ -163,7 +163,7 @@ function Contact() {
   );
 }
 
-const CONTENT = { work: Work, about: About, art: Art, contact: Contact };
+const CONTENT = { tech: Tech, about: About, art: Art, contact: Contact };
 
 export default function App() {
   const toggleTheme = useTheme();
