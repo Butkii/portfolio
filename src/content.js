@@ -52,20 +52,6 @@ export const experience = [
     tags: ['Design'],
     line: 'Designed event collateral and Webflow sites for a UAE coding community.',
   },
-  {
-    company: 'Beno Technologies',
-    title: 'Software Engineer Intern',
-    dates: '2023',
-    tags: ['Frontend'],
-    line: 'Built AI-assisted test generation and sales workflow automation.',
-  },
-  {
-    company: 'Solution BI',
-    title: 'Junior BI Developer',
-    dates: '2022',
-    tags: [],
-    line: 'Built real-time banking dashboards and moved reporting to Power BI.',
-  },
 ];
 
 export const skills = [
