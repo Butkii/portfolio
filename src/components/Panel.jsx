@@ -7,7 +7,7 @@ export default function Panel({ open, title, nav, onClose, children }) {
 
   useEffect(() => {
     if (!open) return;
-    closeRef.current?.focus({ preventScroll: true });
+    closeRef.current?.focus({ preventScroll: true, focusVisible: false });
     bodyRef.current?.scrollTo(0, 0);
     const onKey = (e) => e.key === 'Escape' && onClose();
     window.addEventListener('keydown', onKey);
