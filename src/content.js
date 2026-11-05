@@ -10,7 +10,7 @@ export const profile = {
   longBio: [
     'I started my career as a frontend engineer and moved into product leadership, so I come at product decisions knowing what the build will actually take. At TexAu I helped take an AI legal drafting platform from concept to production, used by legal teams across 100+ US immigration law firms. As Product Lead at RichAPI, I’ve owned platform strategy, competitive positioning, access control design and internal tooling for a B2B data enrichment API.',
     'I graduated valedictorian from Murdoch University Dubai with a double major in Computer Science and Business Information Systems, and I’m working toward an MS in Computer Science at CU Boulder.',
-    'Alongside the tech work I paint (watercolor, gouache, acrylic, mixed media, and more and more pointillism). I’ve shown at Dubai International Art Centre several times, including one sold-out show.',
+    'I’m also an artist. I paint in watercolor, gouache, acrylic and mixed media, and more and more in pointillism, and I’ve exhibited at Dubai International Art Centre.',
   ],
   links: {
     email: 'ghaghdabhakti@gmail.com',
