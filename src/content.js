@@ -18,7 +18,7 @@ export const profile = {
     github: 'https://github.com/Butkii',
     instagram: 'https://www.instagram.com/pellucidworks/',
     // Booking page (Cal.com, Calendly, Google appointment schedule…). Leave '' to hide the button.
-    calendar: '',
+    calendar: 'https://calendar.app.google/4xpThcHTEPTQmhAv6',
   },
 };
 
