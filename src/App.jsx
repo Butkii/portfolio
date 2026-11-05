@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
-import LineHero from './components/LineHero';
-import DotStudy from './components/DotStudy';
-import StipplePad from './components/StipplePad';
-import {
-  profile, positioning, TAGS, experience, skills, education,
-  art, artworks, series, exhibitions,
-} from './content';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import Scene, { HOTSPOTS } from './components/Scene';
+import Panel from './components/Panel';
+import InstagramProfile from './components/InstagramProfile';
+import { profile, positioning, TAGS, experience, skills, education, art } from './content';
+
+const IDS = HOTSPOTS.map((h) => h.id);
+const TITLES = { work: 'Work', about: 'About', art: 'Art', contact: 'Contact' };
+const MENU = ['work', 'about', 'art', 'contact'];
 
 function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -19,37 +20,30 @@ function useTheme() {
   }, [theme]);
   const isDark = () =>
     theme ? theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  return { toggle: () => setTheme(isDark() ? 'light' : 'dark') };
+  return () => setTheme(isDark() ? 'light' : 'dark');
 }
 
-function Nav({ onTheme }) {
-  return (
-    <header className="nav">
-      <a href="#top" className="nav-mark" aria-label="Back to top">
-        <span className="dot d1" /><span className="dot d2" /><span className="dot d3" />
-        <span className="nav-name">Bhakti Ghaghda</span>
-      </a>
-      <nav className="nav-links" aria-label="Sections">
-        <a href="#work">Work</a>
-        <a href="#about">About</a>
-        <a href="#art">Art</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <button className="theme-btn" onClick={onTheme} aria-label="Toggle light or dark theme">
-        <span className="theme-icon" />
-      </button>
-    </header>
-  );
-}
-
-function SectionHead({ n, kicker, title, children }) {
-  return (
-    <div className="section-head">
-      <p className="kicker"><span className="kicker-n">{n}</span>{kicker}</p>
-      <h2>{title}</h2>
-      {children}
-    </div>
-  );
+// Open panel is mirrored in the URL hash, so #work etc. are shareable and Back closes it.
+function useHashPanel() {
+  const read = () => {
+    const h = window.location.hash.slice(1);
+    return IDS.includes(h) ? h : null;
+  };
+  const [active, setActive] = useState(read);
+  useEffect(() => {
+    const onHash = () => setActive(read());
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+  const open = useCallback((id) => {
+    if (window.location.hash !== `#${id}`) window.location.hash = id;
+    setActive(id);
+  }, []);
+  const close = useCallback(() => {
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    setActive(null);
+  }, []);
+  return [active, open, close];
 }
 
 function Dots({ tags }) {
@@ -60,52 +54,45 @@ function Dots({ tags }) {
   );
 }
 
-function Tech() {
+function Work() {
   return (
-    <section id="work" className="section">
-      <SectionHead n="01" kicker="Work" title={positioning}>
-        <p className="legend">
-          {TAGS.map((t) => (
-            <span key={t}><span className={`pd pd-${t.toLowerCase()}`} />{t}</span>
-          ))}
-        </p>
-      </SectionHead>
-
+    <>
+      <h2 className="p-title">{positioning}</h2>
+      <p className="legend">
+        {TAGS.map((t) => (
+          <span key={t}><span className={`pd pd-${t.toLowerCase()}`} />{t}</span>
+        ))}
+      </p>
       <ol className="places">
         {experience.map((job) => {
           const Name = job.link ? 'a' : 'span';
           return (
             <li key={job.company} className={`place ${job.link ? 'has-link' : ''}`}>
-              <span className="place-dates">{job.dates}</span>
-              <div className="place-main">
-                <h3>
-                  <Name
-                    className="place-name"
-                    {...(job.link ? { href: job.link, target: '_blank', rel: 'noreferrer' } : {})}
-                  >
-                    {job.company}
-                    {job.link && <span className="place-arrow" aria-hidden="true">↗</span>}
-                  </Name>
-                  {job.note && <span className="place-note">{job.note}</span>}
-                </h3>
-                <p className="place-line">{job.line}</p>
-              </div>
-              <div className="place-side">
-                <span className="place-title">{job.title}</span>
+              <p className="place-meta">
+                <span>{job.dates}</span>
+                <span>{job.title}</span>
                 <Dots tags={job.tags} />
-              </div>
+              </p>
+              <h3>
+                <Name className="place-name" {...(job.link ? { href: job.link, target: '_blank', rel: 'noreferrer' } : {})}>
+                  {job.company}
+                  {job.link && <span className="place-arrow" aria-hidden="true">↗</span>}
+                </Name>
+                {job.note && <span className="place-note">{job.note}</span>}
+              </h3>
+              <p className="place-line">{job.line}</p>
             </li>
           );
         })}
       </ol>
-    </section>
+    </>
   );
 }
 
 function About() {
   return (
-    <section id="about" className="section about">
-      <SectionHead n="02" kicker="About" title="Engineer first, product lead now, painter throughout." />
+    <>
+      <h2 className="p-title">Engineer first, product lead now, painter throughout.</h2>
       <div className="about-bio">
         {profile.longBio.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}
       </div>
@@ -130,85 +117,17 @@ function About() {
           </article>
         ))}
       </div>
-    </section>
+    </>
   );
 }
 
 function Art() {
   return (
-    <section id="art" className="section art">
-      <SectionHead n="03" kicker="Art" title={art.name}>
-        <p className="lede">{art.intro}</p>
-        <a className="link-arrow" href={profile.links.instagram} target="_blank" rel="noreferrer">
-          Follow the work on Instagram {art.handle}
-        </a>
-      </SectionHead>
-
-      <div className="works">
-        {artworks.map((w) => (
-          <figure key={w.title} className="work">
-            <div className="work-frame">
-              {w.image ? (
-                <img src={w.image} alt={`${w.title}: ${w.description}`} loading="lazy" />
-              ) : (
-                <DotStudy seed={w.seed} motif={w.motif} palette={w.palette} label={`Dot study after ${w.title}`} />
-              )}
-              {w.status && <span className="work-status">{w.status}</span>}
-            </div>
-            <figcaption>
-              <h4>{w.title}</h4>
-              {(w.medium || w.size) && (
-                <p className="work-medium">{[w.medium, w.size].filter(Boolean).join(' · ')}</p>
-              )}
-              <p>{w.description}</p>
-              {w.note && <p className="work-note">{w.note}</p>}
-              {!w.image && <p className="work-placeholder">Generated dot study · photograph to come</p>}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div className="series">
-        <div>
-          <h3 className="sub-head">{series.title}</h3>
-          <p className="series-detail">{series.detail}</p>
-          <p>{series.description}</p>
-        </div>
-        <ol className="series-grid" aria-label="Series progress">
-          {series.pieces.map((p, i) => (
-            <li key={i} className={`canvas-slot slot-${p.kind} ${p.done ? 'is-done' : ''}`}>
-              <span className="slot-glyph" aria-hidden="true" />
-              <span className="slot-label">{String(i + 1).padStart(2, '0')} · {p.kind}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <div className="art-lower">
-        <div>
-          <h3 className="sub-head">Exhibitions</h3>
-          <ul className="exhibitions">
-            {exhibitions.map((x, i) => (
-              <li key={i} className={x.upcoming ? 'is-upcoming' : ''}>
-                <span className="ex-year">{x.year}</span>
-                <span className="ex-main">
-                  <strong>{x.title}</strong>
-                  <span>{x.venue}</span>
-                </span>
-                {x.note && <span className={`ex-note ${x.highlight ? 'is-hl' : ''}`}>{x.note}</span>}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div>
-          <h3 className="sub-head">Try it: one dot at a time</h3>
-          <p className="muted">
-            Pointillism builds an image from thousands of small marks. Paint something here and save it.
-          </p>
-          <StipplePad />
-        </div>
-      </div>
-    </section>
+    <>
+      <h2 className="p-title art-title">{art.name}</h2>
+      <p className="lede">{art.intro}</p>
+      <InstagramProfile handle={art.handle.replace('@', '')} />
+    </>
   );
 }
 
@@ -225,8 +144,8 @@ function Contact() {
     }
   };
   return (
-    <section id="contact" className="section contact">
-      <SectionHead n="04" kicker="Contact" title="Say hello." />
+    <>
+      <h2 className="p-title">Let&rsquo;s grab a coffee.</h2>
       <p className="lede">
         Product roles, frontend work, original paintings and exhibition enquiries all come to the same inbox.
         For art, you can also DM {art.handle}.
@@ -240,39 +159,99 @@ function Contact() {
         <li><a href={profile.links.github} target="_blank" rel="noreferrer">GitHub</a></li>
         <li><a href={profile.links.instagram} target="_blank" rel="noreferrer">Instagram</a></li>
       </ul>
-    </section>
+    </>
   );
 }
 
+const CONTENT = { work: Work, about: About, art: Art, contact: Contact };
+
 export default function App() {
-  const { toggle } = useTheme();
+  const toggleTheme = useTheme();
+  const [active, open, close] = useHashPanel();
+  // Keep the last panel's content mounted while it slides out.
+  const [shown, setShown] = useState(active);
+  const opener = useRef(null);
+
+  useEffect(() => { if (active) setShown(active); }, [active]);
+
+  // On wide screens, shrink the scene into the space left of the open panel
+  // (instead of hiding the clicked object behind it).
+  const stageRef = useRef(null);
+  // On phones the scene is wider than the screen; start centred on her.
+  const scrollRef = useRef(null);
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (el && el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth - el.clientWidth) * 0.55;
+  }, []);
+  useEffect(() => {
+    const fit = () => {
+      const stage = stageRef.current;
+      const scene = stage?.querySelector('.scene');
+      if (!scene) return;
+      const vw = window.innerWidth;
+      const panel = Math.min(620, vw);
+      const room = vw - panel - 48;
+      stage.style.setProperty('--shift', `${-panel / 2}px`);
+      stage.style.setProperty('--shrink', Math.min(1, room / scene.offsetWidth).toFixed(3));
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
+
+  const handleOpen = (id, el) => {
+    opener.current = el || document.activeElement;
+    open(id);
+  };
+  const handleClose = useCallback(() => {
+    close();
+    opener.current?.focus?.({ preventScroll: true });
+  }, [close]);
+
+  const Body = shown ? CONTENT[shown] : null;
+
   return (
-    <>
-      <Nav onTheme={toggle} />
-      <main id="top">
-        <section className="hero">
-          <div className="hero-text">
-            <h1 className="hero-name">{profile.name}</h1>
-            <p className="hero-roles">{profile.roles.join(' · ')}</p>
-            <p className="hero-bio">{profile.shortBio}</p>
-            <p className="hero-links">
-              <a href="#work">See the work</a>
-              <a href="#art">See the paintings</a>
-            </p>
-          </div>
-          <div className="hero-art">
-            <LineHero label="Black-and-white line drawing of a girl working on a laptop at a desk" />
-          </div>
-        </section>
-        <Tech />
-        <About />
-        <Art />
-        <Contact />
+    <div ref={stageRef} className={`stage ${active ? 'has-panel' : ''}`}>
+      <header className="topbar">
+        <div className="intro">
+          <h1 className="name">{profile.name}</h1>
+          <p className="roles">{profile.roles.join(' · ')}</p>
+        </div>
+        <nav className="menu" aria-label="Sections">
+          {MENU.map((id) => (
+            <button
+              key={id}
+              type="button"
+              className={active === id ? 'is-active' : ''}
+              aria-current={active === id ? 'true' : undefined}
+              onClick={(e) => handleOpen(id, e.currentTarget)}
+            >
+              {TITLES[id]}
+            </button>
+          ))}
+          <button type="button" className="theme-btn" onClick={toggleTheme} aria-label="Toggle light or dark theme">
+            <span className="theme-icon" />
+          </button>
+        </nav>
+      </header>
+
+      <main className="desk" aria-label="Interactive desk">
+        <div className="desk-scroll" ref={scrollRef}>
+          <Scene active={active} onOpen={handleOpen} />
+        </div>
+        <p className="hint">
+          <span className="hint-wide">Click around the desk. The lamp works too.</span>
+          <span className="hint-narrow">Swipe to look around, tap to open.</span>
+        </p>
       </main>
-      <footer className="footer">
-        <p>© {new Date().getFullYear()} Bhakti Ghaghda · {profile.location}</p>
-        <p className="muted">Made dot by dot.</p>
+
+      <footer className="foot">
+        <span>© {new Date().getFullYear()} Bhakti Ghaghda · {profile.location}</span>
       </footer>
-    </>
+
+      <Panel open={!!active} title={shown ? TITLES[shown] : ''} onClose={handleClose}>
+        {Body && <Body />}
+      </Panel>
+    </div>
   );
 }

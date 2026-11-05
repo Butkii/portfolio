@@ -12,12 +12,5 @@ The site is built so that nothing marked TODO shows up publicly. Missing items a
 - [ ] **CV.** The old 2023 CV was removed. Drop a current PDF in `public/` and I'll link it.
 
 ## Art
-- [ ] **Photos** for A Quiet Arrangement, Unmade, Remade and Tbilisi Street Scene (`public/art/`).
-- [ ] **A Quiet Arrangement:** year, and whether it's available or sold.
-- [ ] **Unmade, Remade:** medium, size, year.
-- [ ] **Tbilisi Street Scene:** final title, medium, size, year.
-- [ ] **Birds & Lanterns:** mark pieces `done: true` and add images as they're finished. Add links to the process reels.
-- [ ] **Studies & sketchbook:** 4–6 images. The section is hidden until these exist.
-- [ ] **Exhibitions:** years for all DIAC shows, names of the sold-out show and the third show, and the name and venue of the Nov 2026 show.
-- [ ] **Process reels:** 2–3 Instagram reel links to embed.
+The Art panel shows your live Instagram profile, so there is nothing to maintain here. Optional:
 - [ ] **Commissions:** say whether you take them. The contact copy currently mentions only "original paintings and exhibition enquiries".

@@ -1,20 +1,50 @@
-// Hero illustration: a girl at a desk, side view, working on a laptop.
+// The desk scene: a girl at a desk, side view, working on a laptop, with an
+// easel, a framed diploma, a plant, a mug and a pendant lamp.
 // Pure ink line art. Shapes are paper-filled so front shapes hide back ones;
 // fill: 'ink' = solid black, fill: 'none' = open stroke.
+// `obj-*` classes mark the clickable objects (they highlight on hover).
 
-export const VIEW = 400;
+// Drawing coordinates run from MINX to MINX + W horizontally, 0..H vertically.
+export const MINX = -130;
+export const W = 530;
+export const H = 400;
 export const MUG = { x: 367, y: 254 };
 export const EYE = { x: 190, y: 120 };
+export const LAMP = { x: 300, y: 94 };
+
+// Ink dots around the lantern in the easel painting (a nod to pointillism).
+const halo = Array.from({ length: 12 }, (_, i) => {
+  const a = (i / 12) * Math.PI * 2;
+  const r = 15 + (i % 3) * 4;
+  return { t: 'circle', a: { cx: (-65 + Math.cos(a) * r).toFixed(1), cy: (186 + Math.sin(a) * r * 0.9).toFixed(1), r: 1.2, class: 'obj-art' }, fill: 'ink', line: true, w: 0.3 };
+});
 
 const S = [
+  // easel (Art)
+  { t: 'path', a: { d: 'M-62 116 L-58 384', class: 'obj-art' }, line: true, fill: 'none' },
+  { t: 'path', a: { d: 'M-65 116 L-104 384 M-65 116 L-24 384', class: 'obj-art' }, line: true, fill: 'none' },
+  { t: 'rect', a: { x: -112, y: 134, width: 94, height: 114, class: 'obj-art' }, line: true },
+  { t: 'rect', a: { x: -118, y: 248, width: 106, height: 6, class: 'obj-art' }, line: true },
+  { t: 'path', a: { d: 'M-106 228 L-24 228 M-65 228 L-65 196', class: 'obj-art' }, line: true, fill: 'none' },
+  { t: 'path', a: { d: 'M-74 176 L-56 176 L-53 196 L-77 196 Z', class: 'obj-art' }, line: true },
+  { t: 'path', a: { d: 'M-77 176 L-65 166 L-53 176 M-65 166 L-65 161', class: 'obj-art' }, line: true, fill: 'none' },
+  { t: 'path', a: { d: 'M-46 158 q4 -4 8 0 q4 -4 8 0', class: 'obj-art' }, line: true, fill: 'none' },
+  ...halo,
+
+  // framed diploma on the wall (About)
+  { t: 'path', a: { d: 'M64 28 L78 14 L92 28', class: 'obj-about' }, line: true, fill: 'none' },
+  { t: 'rect', a: { x: 50, y: 28, width: 56, height: 64, class: 'obj-about' }, line: true },
+  { t: 'rect', a: { x: 57, y: 35, width: 42, height: 50, class: 'obj-about' }, line: true },
+  { t: 'path', a: { d: 'M66 56 L78 50 L90 56 L78 62 Z', class: 'obj-about' }, line: true },
+  { t: 'path', a: { d: 'M70 59 L70 66 Q78 70 86 66 L86 59 M90 56 L90 66', class: 'obj-about' }, line: true, fill: 'none' },
 
   // floor plant
-  { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302' }, line: true, fill: 'none' },
-  { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)' }, line: true },
-  { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)' }, line: true },
-  { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)' }, line: true },
-  { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5 }, line: true },
-  { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)' }, line: true },
+  { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302', class: 'plant' }, line: true, fill: 'none' },
+  { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)', class: 'plant' }, line: true },
+  { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)', class: 'plant' }, line: true },
+  { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)', class: 'plant' }, line: true },
+  { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5, class: 'plant' }, line: true },
+  { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)', class: 'plant' }, line: true },
   { t: 'path', a: { d: 'M42 376 L52 330 L84 330 L94 376 Z' }, line: true },
 
   // chair
@@ -40,7 +70,7 @@ const S = [
   // neck, head, face
   { t: 'path', a: { d: 'M160 148 L176 148 L178 172 L160 174 Z' }, line: true },
   { t: 'ellipse', a: { cx: 174, cy: 124, rx: 27, ry: 31 }, line: true },
-  { t: 'path', a: { d: 'M198 116 L206 132 L198 135' }, line: true, nosefill: true },
+  { t: 'path', a: { d: 'M198 116 L206 132 L198 135' }, line: true },
   { t: 'ellipse', a: { cx: 190, cy: 120, rx: 2.4, ry: 2.8, class: 'eye' }, line: true, fill: 'ink', w: 0.6 },
   { t: 'path', a: { d: 'M185 112 Q190 109 196 112' }, line: true, fill: 'none' },
   { t: 'path', a: { d: 'M194 143 Q197 145 200 143' }, line: true, fill: 'none' },
@@ -55,13 +85,13 @@ const S = [
   { t: 'rect', a: { x: 370, y: 298, width: 8, height: 78 }, line: true },
   { t: 'rect', a: { x: 190, y: 288, width: 196, height: 10 }, line: true },
 
-  // laptop
-  { t: 'path', a: { d: 'M232 280 L330 280 L334 288 L228 288 Z' }, line: true },
-  { t: 'path', a: { d: 'M322 285 L346 200 L354 202 L330 287 Z' }, line: true },
+  // laptop (Work)
+  { t: 'path', a: { d: 'M232 280 L330 280 L334 288 L228 288 Z', class: 'obj-work' }, line: true },
+  { t: 'path', a: { d: 'M322 285 L346 200 L354 202 L330 287 Z', class: 'obj-work' }, line: true },
 
-  // mug
-  { t: 'path', a: { d: 'M378 266 Q390 268 388 276 Q386 284 377 282' }, line: true, fill: 'none' },
-  { t: 'path', a: { d: 'M356 258 L378 258 L376 288 L358 288 Z' }, line: true },
+  // mug (Contact)
+  { t: 'path', a: { d: 'M378 266 Q390 268 388 276 Q386 284 377 282', class: 'obj-contact' }, line: true, fill: 'none' },
+  { t: 'path', a: { d: 'M356 258 L378 258 L376 288 L358 288 Z', class: 'obj-contact' }, line: true },
 ];
 
 const attrs = (a) => Object.entries(a).map(([k, v]) => `${k}="${v}"`).join(' ');
@@ -70,12 +100,9 @@ export const LINE_MARKUP = S.filter((s) => s.line)
   .map((s, i) => {
     const fill = s.fill === 'none' ? 'none' : s.fill === 'ink' ? 'currentColor' : 'var(--paper)';
     const w = s.w ? ` stroke-width="${s.w}"` : '';
-    return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${i}"/>`;
+    return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(i * 0.7)}"/>`;
   })
   .join('');
-
-// Pendant lamp, rendered separately so it can swing and switch on.
-export const LAMP = { x: 300, y: 94 };
 
 // Warm light, rendered behind the drawing so paper-filled shapes sit on top.
 export const GLOW_MARKUP = `
@@ -96,6 +123,7 @@ export const GLOW_MARKUP = `
   <ellipse cx="300" cy="284" rx="96" ry="16" fill="url(#lamp-glow)"/>
 </g>`;
 
+// Pendant lamp, rendered separately so it can swing and switch on.
 export const LAMP_MARKUP = `
 <g class="lamp-swing">
   <path d="M300 0 L300 72" pathLength="1" style="--d:0"/>

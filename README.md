@@ -12,20 +12,27 @@ npm run dev      # http://localhost:5173
 npm run build    # outputs dist/
 ```
 
+## How it works
+
+The site is one screen: a line drawing of a desk that doubles as the navigation.
+
+| Object | Opens |
+|---|---|
+| Laptop | Work |
+| Framed diploma | About (bio, what I do, education) |
+| Easel | Art (live Instagram profile embed for @pellucidworks) |
+| Mug | Contact |
+| Lamp | Switches the light on and off |
+
+Panels slide in from the right (a bottom sheet on phones). Each panel has its own URL (`/#work`, `/#about`, `/#art`, `/#contact`). Esc, the close button or Back closes it. The top menu reaches the same panels without the drawing.
+
+- `src/components/girl.svg.js`: the drawing, as a list of shapes. `obj-*` classes mark the clickable objects.
+- `src/components/Scene.jsx`: hotspots, hover highlights, the intro label tour, eye tracking and the lamp.
+- `src/components/Panel.jsx`: the slide-in panel.
+- `src/components/InstagramProfile.jsx`: Instagram's own profile embed, which updates automatically.
+
 ## Editing content
 
-All copy lives in [`src/content.js`](src/content.js): bio, experience, projects, skills, education, artworks, series and exhibitions. The components only render it.
-
-- **Artwork photos:** put files in `public/art/` and set `image: '/art/your-file.jpg'` on the work. Until a work has an image, a generated pointillist "dot study" in that work's `palette` stands in.
-- **Series progress:** set `done: true` on a piece in `series.pieces`.
-- **Tags:** experience bullets are grouped by `PM` / `Frontend` / `Design`, and the filter on the Work section uses those groups.
-
-## Interactive pieces
-
-- `DotHero`: the name rendered as a few thousand dots. They scatter from the cursor and burst on click or tap.
-- `DotStudy`: seeded generative pointillism used as placeholders for artworks. It stipples itself in when scrolled into view.
-- `StipplePad`: a small canvas where visitors can paint with dots and save the result as a PNG.
-
-All three respect `prefers-reduced-motion` and follow the light/dark theme.
+All copy lives in [`src/content.js`](src/content.js): bio, the work rows (with links to the live products), skills, education and the art intro.
 
 Outstanding content gaps are listed in [CONTENT-TODO.md](CONTENT-TODO.md).
