@@ -106,21 +106,18 @@ function About() {
   return (
     <section id="about" className="section about">
       <SectionHead n="02" kicker="About" title="Engineer first, product lead now, painter throughout." />
-      <div className="about-grid">
-        <div className="about-bio">
-          {profile.longBio.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}
-        </div>
-        <aside className="about-side">
-          <h3 className="sub-head">Skills</h3>
-          <dl className="skills">
-            {skills.map((s) => (
-              <div key={s.group}>
-                <dt>{s.group}</dt>
-                <dd>{s.items.join(' · ')}</dd>
-              </div>
-            ))}
-          </dl>
-        </aside>
+      <div className="about-bio">
+        {profile.longBio.map((p) => <p key={p.slice(0, 20)}>{p}</p>)}
+      </div>
+      <h3 className="sub-head">What I do</h3>
+      <div className="skills">
+        {skills.map((s) => (
+          <article key={s.title} className={`skill skill-${s.tag.toLowerCase()}`}>
+            <h4><span className={`pd pd-${s.tag.toLowerCase()}`} />{s.title}</h4>
+            <p className="skill-line">{s.line}</p>
+            <ul>{s.items.map((i) => <li key={i}>{i}</li>)}</ul>
+          </article>
+        ))}
       </div>
       <h3 className="sub-head">Education</h3>
       <div className="edu">

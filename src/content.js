@@ -55,38 +55,26 @@ export const experience = [
   },
 ];
 
+// What I do: one card per discipline. `tag` matches the Work section dots.
 export const skills = [
   {
-    group: 'Product',
-    items: [
-      'Product discovery',
-      'Positioning & competitive analysis',
-      'Pricing & packaging',
-      'Roadmap & rollout planning',
-      'Access control & permissions design',
-      'System design',
-      'Stakeholder & customer work',
-      'Hiring & interviewing',
-    ],
+    tag: 'PM',
+    title: 'Product',
+    line: 'Deciding what to build and why, then getting it shipped.',
+    items: ['Discovery & customer research', 'Positioning & pricing', 'Roadmaps & phased rollouts', 'Systems & permissions design', 'Hiring & interviewing'],
   },
-  { group: 'Frontend', items: ['React', 'Next.js', 'TypeScript', 'Webflow', 'Vercel'] },
   {
-    group: 'Backend / data',
-    items: [
-      'Node.js',
-      'NestJS',
-      'Supabase (Auth, Postgres)',
-      'PostgreSQL',
-      'MongoDB',
-      'AWS (Textract, S3, Lambda)',
-      'Stripe',
-      'SAML 2.0 / Okta',
-      'Python for data analysis',
-      'JS / Puppeteer',
-    ],
+    tag: 'Frontend',
+    title: 'Engineering',
+    line: 'Building products end to end, with the most care on the front.',
+    items: ['React, Next.js & TypeScript', 'Node.js & PostgreSQL', 'Supabase, AWS & Stripe', 'AI & LLM document pipelines', 'Auth & enterprise SSO'],
   },
-  { group: 'AI', items: ['OpenAI APIs', 'LLM document pipelines'] },
-  { group: 'Design', items: ['Figma (variables & theming)', 'Visual & brand design', 'Social & print collateral'] },
+  {
+    tag: 'Design',
+    title: 'Design',
+    line: 'Making things look and feel right, from the system to the screen.',
+    items: ['Figma & design systems', 'Visual & brand design', 'Websites in Webflow', 'Social & print collateral', 'Art direction'],
+  },
 ];
 
 export const education = [

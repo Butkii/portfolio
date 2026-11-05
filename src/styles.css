@@ -266,15 +266,28 @@ button { font: inherit; color: inherit; }
 }
 
 /* ---------- about ---------- */
-.about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 64px; }
-.about-bio p { font-size: 17px; color: var(--ink-2); margin-bottom: 18px; }
+.about-bio { max-width: 720px; }
+.about-bio p { font-size: 18px; color: var(--ink-2); margin-bottom: 18px; }
 .about-bio p:first-child::first-letter {
   font-family: var(--serif); float: left; font-size: 64px; line-height: 0.85; padding: 6px 10px 0 0; color: var(--vermilion);
 }
-.about-side .sub-head { margin-top: 0; }
-.skills div { padding: 12px 0; border-top: 1px dotted var(--line); }
-.skills dt { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 4px; }
-.skills dd { margin: 0; font-size: 15px; }
+.skills { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.skill {
+  position: relative; padding: 26px 24px 22px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper);
+  transition: border-color 0.25s, transform 0.25s;
+}
+.skill::before { content: ''; position: absolute; left: 24px; right: 24px; top: -1px; height: 2px; border-radius: 2px; transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+.skill-pm::before { background: var(--pm); }
+.skill-frontend::before { background: var(--fe); }
+.skill-design::before { background: var(--de); }
+.skill:hover { transform: translateY(-3px); border-color: var(--ink-2); }
+.skill:hover::before { transform: scaleX(1); }
+.skill h4 { font-size: 22px; display: flex; align-items: center; gap: 10px; }
+.skill-line { margin-top: 8px; color: var(--ink-2); font-size: 15px; min-height: 3em; }
+.skill ul { list-style: none; margin-top: 16px; border-top: 1px dotted var(--line); }
+.skill li { padding: 9px 0; border-bottom: 1px dotted var(--line); font-size: 14px; }
+.skill li:last-child { border-bottom: 0; padding-bottom: 0; }
+@media (max-width: 860px) { .skills { grid-template-columns: 1fr; } .skill-line { min-height: 0; } }
 .edu { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
 .edu-item { padding: 24px; border-radius: 14px; background: var(--paper-2); }
 .edu-item h4 { font-size: 20px; }
@@ -284,7 +297,7 @@ button { font: inherit; color: inherit; }
 .edu-item li { font-size: 15px; color: var(--ink-2); padding: 6px 0 6px 18px; position: relative; }
 .edu-item li::before { content: ''; position: absolute; left: 2px; top: 0.95em; width: 5px; height: 5px; border-radius: 50%; background: var(--ochre); }
 @media (max-width: 860px) {
-  .about-grid, .edu { grid-template-columns: 1fr; gap: 32px; }
+  .edu { grid-template-columns: 1fr; gap: 32px; }
 }
 
 /* ---------- art ---------- */
