@@ -1,70 +1,31 @@
-# Getting Started with Create React App
+# bhaktighaghda.com
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Personal site for Bhakti Ghaghda: product lead, frontend engineer, designer and painter (Pellucidworks).
 
-## Available Scripts
+Vite + React, no CSS framework. The dot effects are hand-written canvas code, with no libraries.
 
-In the project directory, you can run:
+## Run
 
-### `npm start`
+```bash
+npm install
+npm run dev      # http://localhost:5173
+npm run build    # outputs dist/
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Editing content
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+All copy lives in [`src/content.js`](src/content.js): bio, experience, projects, skills, education, artworks, series and exhibitions. The components only render it.
 
-### `npm test`
+- **Artwork photos:** put files in `public/art/` and set `image: '/art/your-file.jpg'` on the work. Until a work has an image, a generated pointillist "dot study" in that work's `palette` stands in.
+- **Series progress:** set `done: true` on a piece in `series.pieces`.
+- **Tags:** experience bullets are grouped by `PM` / `Frontend` / `Design`, and the filter on the Work section uses those groups.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Interactive pieces
 
-### `npm run build`
+- `DotHero`: the name rendered as a few thousand dots. They scatter from the cursor and burst on click or tap.
+- `DotStudy`: seeded generative pointillism used as placeholders for artworks. It stipples itself in when scrolled into view.
+- `StipplePad`: a small canvas where visitors can paint with dots and save the result as a PNG.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+All three respect `prefers-reduced-motion` and follow the light/dark theme.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Outstanding content gaps are listed in [CONTENT-TODO.md](CONTENT-TODO.md).
