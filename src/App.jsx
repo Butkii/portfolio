@@ -108,7 +108,7 @@ function Tech() {
           return (
             <li key={job.company} className={`place ${job.link ? 'has-link' : ''}`}>
               <p className="place-meta">
-                <span>{job.dates}</span>
+                {job.current && <span className="current">Current</span>}
                 <span>{job.title}</span>
                 <Dots tags={job.tags} />
               </p>
