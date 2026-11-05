@@ -53,13 +53,6 @@ export const experience = [
     tags: ['PM', 'Frontend'],
     line: 'Helped take an AI legal drafting platform from concept to production. It\u2019s now used by 100+ US immigration law firms.',
   },
-  {
-    company: 'Coders Launchpad UAE',
-    title: 'Volunteer Designer',
-    dates: '2023 – 2024',
-    tags: ['Design'],
-    line: 'Designed event collateral and Webflow sites for a UAE coding community.',
-  },
 ];
 
 export const skills = [
