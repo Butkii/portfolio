@@ -112,7 +112,8 @@ button { font: inherit; color: inherit; }
 }
 @keyframes illo-draw { to { stroke-dashoffset: 0; } }
 @keyframes illo-ink { to { fill-opacity: 1; } }
-.illo .eye {
+/* more specific than the solid-fill rule above, so the blink isn't overridden */
+.illo [pathLength].eye {
   transform-box: fill-box; transform-origin: center;
   animation: illo-draw 0.9s forwards, illo-ink 0.3s 1s forwards, blink 5s 3s infinite;
 }
@@ -178,7 +179,7 @@ button { font: inherit; color: inherit; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .illo [pathLength], .illo [pathLength][fill='currentColor'], .illo .eye { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
+  .illo [pathLength], .illo [pathLength][fill='currentColor'], .illo [pathLength].eye { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
   .illo .steam { display: none; }
   .illo-lamp.swing .lamp-swing, .illo-lamp .bulb { animation: none !important; }
   .desk, .panel, .scrim { transition: none !important; }
