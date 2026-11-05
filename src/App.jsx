@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import StippleHero from './components/StippleHero';
+import LineHero from './components/LineHero';
 import DotStudy from './components/DotStudy';
 import StipplePad from './components/StipplePad';
 import {
@@ -315,7 +315,7 @@ export default function App() {
             </p>
           </div>
           <div className="hero-art">
-            <StippleHero label="Black-and-white stippled illustration of a girl working on a laptop at a desk" />
+            <LineHero label="Black-and-white line drawing of a girl working on a laptop at a desk" />
           </div>
         </section>
         <Tech />
