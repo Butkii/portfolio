@@ -47,7 +47,6 @@ const S = [
   { t: 'ellipse', a: { cx: 190, cy: 120, rx: 2.4, ry: 2.8, class: 'eye' }, line: true, fill: 'ink', w: 0.6 },
   { t: 'path', a: { d: 'M185 112 Q190 109 196 112' }, line: true, fill: 'none' },
   { t: 'path', a: { d: 'M194 143 Q197 145 200 143' }, line: true, fill: 'none' },
-  { t: 'circle', a: { cx: 165, cy: 141, r: 2.2 }, fill: 'ink', line: true },
 
   // hair, bun, pencil
   { t: 'path', a: { d: 'M132 82 L166 108' }, line: true, fill: 'none', w: 2.4 },

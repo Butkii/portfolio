@@ -25,6 +25,7 @@ export const positioning =
 
 export const TAGS = ['PM', 'Frontend', 'Design'];
 
+// Each bullet: [tag, text]. Tag drives the colour dot and the discipline filter.
 export const experience = [
   {
     company: 'RichAPI',
@@ -32,39 +33,15 @@ export const experience = [
     title: 'Product Lead',
     dates: 'Mar 2024 – Nov 2026',
     place: 'Remote, UAE',
-    summary:
-      'RichAPI is a B2B data enrichment API that routes each request through a waterfall of data providers and returns one result.',
-    groups: [
-      {
-        tag: 'PM',
-        label: 'Product',
-        items: [
-          'Owned competitive positioning. I framed RichAPI’s edge as breadth across data categories in one platform, not provider count within one category, and as reliable multi-provider fallback for when a single provider misses.',
-          'Defined pricing and trust principles for the product: customers pay only for successful calls, and every result shows which provider in the waterfall served it.',
-          'Redesigned rate-limit tiers across all customer orgs to match upstream provider capacity. Built the risk model (low-usage orgs first, high-usage orgs warned early), the tier mapping and a phased rollout with a two-week notice window for active customers.',
-          'Designed the access control architecture: org/team separation, per-team credit limits, endpoint blocking on an explicit-deny model, and SSO auto-join with default credit caps.',
-          'Ran the website redesign: evaluated designers, chose the homepage direction and set the content strategy around a storytelling pipeline.',
-          'Handled B2B integration incidents with customers, including one where an upstream provider misrepresented its rate limits.',
-          'Interviewed and assessed engineering hires (automation engineers, scraping engineers, a sales/technical hybrid role).',
-        ],
-      },
-      {
-        tag: 'Frontend',
-        label: 'Engineering',
-        items: [
-          'Built enterprise SSO (SAML 2.0 via Okta) on Supabase Auth, tested end to end through MockSAML and Okta Developer. Resolved the production-readiness issues myself: custom domain activation, CLI schema errors and existing-user collisions.',
-          'Building the internal admin dashboard (Next.js + Supabase Postgres) with Tenant, Provider Health, Route Editor and Economics screens.',
-          'Wrote and reviewed Postgres migration scripts, including foreign-key dependency analysis, and managed Vercel deployments.',
-        ],
-      },
-      {
-        tag: 'Design',
-        label: 'Design',
-        items: [
-          'Set up Figma variables for dark and light themes on the redesigned site.',
-          'Briefed and directed outside designers on social media assets and email templates.',
-        ],
-      },
+    summary: 'A B2B data enrichment API that combines many data providers behind one call.',
+    bullets: [
+      ['PM', 'Defined positioning and pricing around multi-category coverage and paying only for successful results, setting RichAPI apart from single-source providers.'],
+      ['PM', 'Redesigned usage tiers for every customer account through a risk-based, phased rollout, matching limits to provider capacity with advance notice for active customers.'],
+      ['PM', 'Designed the access-control model for enterprise teams, covering team separation, spending limits and SSO onboarding, so larger customers can manage usage on their own.'],
+      ['Frontend', 'Shipped enterprise SSO with Okta on Supabase Auth, from prototype to production, so customers can sign in through their company identity provider.'],
+      ['Frontend', 'Building an internal operations dashboard in Next.js and Supabase that gives the team one place to manage customers, providers, routing and costs.'],
+      ['Design', 'Led the website redesign by choosing the design partner, setting the homepage direction and building a light/dark theme system in Figma.'],
+      ['PM', 'Handled customer escalations and interviewed engineering candidates as the team grew.'],
     ],
   },
   {
@@ -73,32 +50,18 @@ export const experience = [
     title: 'Software Engineer → Product',
     dates: 'Mar 2024 – 2025',
     place: 'Remote, UAE',
-    summary:
-      'Visalaw.ai is an AI-powered legal drafting platform for US immigration attorneys. It’s now a recognized name in immigration law tech.',
-    groups: [
-      {
-        tag: 'PM',
-        label: 'Product',
-        items: [
-          'Helped take the platform from concept to production. It automates evidence review, petition generation and packet assembly for legal teams across 100+ law firms.',
-          'Worked directly with attorneys to find workflow bottlenecks and turn them into product requirements and features across evidence management, drafting and case preparation.',
-        ],
-      },
-      {
-        tag: 'Frontend',
-        label: 'Engineering',
-        items: [
-          'Built the user-facing workflows (onboarding, collaboration and document management) in Next.js and React.',
-          'Implemented subscription management, trial flows and credit-based billing with Stripe, which enabled self-serve onboarding and enterprise monetization.',
-          'Built document-processing pipelines (AWS Textract, S3, OpenAI) that cut draft preparation from several hours to minutes.',
-          'Cut document generation time from 30–40 minutes to under 3 minutes through query restructuring, indexing, caching and parallel processing.',
-          'Implemented cross-application authentication between products.',
-        ],
-      },
-    ],
+    summary: 'An AI legal drafting platform for US immigration attorneys.',
     stats: [
-      { value: '100+', label: 'law firms' },
-      { value: '<3 min', label: 'doc generation, down from 30–40' },
+      { value: '100+', label: 'law firms using it' },
+      { value: '<3 min', label: 'document generation, down from 30–40' },
+    ],
+    bullets: [
+      ['PM', 'Helped take Visalaw.ai from concept to production; it\u2019s now used by legal teams across 100+ US immigration law firms.'],
+      ['PM', 'Turned attorney interviews into product requirements across evidence, drafting and case preparation, so the roadmap went after real workflow bottlenecks.'],
+      ['Frontend', 'Built an AI document pipeline with AWS Textract and OpenAI that cut draft preparation from hours to minutes.'],
+      ['Frontend', 'Cut document generation from 30–40 minutes to under 3 through query, caching and parallel-processing work.'],
+      ['Frontend', 'Built subscriptions, trials and credit billing with Stripe, opening up self-serve sign-up and enterprise plans.'],
+      ['Frontend', 'Built the onboarding, collaboration and document workflows in Next.js and React.'],
     ],
   },
   {
@@ -106,16 +69,9 @@ export const experience = [
     title: 'Volunteer Designer',
     dates: 'Dec 2023 – Jun 2024',
     place: 'Dubai',
-    groups: [
-      {
-        tag: 'Design',
-        label: 'Design',
-        items: [
-          'Designed social media posts, event posters and information booklets in Figma.',
-          'Designed and built Webflow websites with a focus on usability.',
-          'Helped run events and workshops at CodersHQ.',
-        ],
-      },
+    bullets: [
+      ['Design', 'Designed social posts, posters and booklets in Figma for community events and workshops at CodersHQ.'],
+      ['Design', 'Designed and built Webflow websites with a focus on usability.'],
     ],
   },
   {
@@ -124,15 +80,9 @@ export const experience = [
     dates: 'Jun 2023 – Aug 2023',
     place: 'Dubai',
     earlier: true,
-    groups: [
-      {
-        tag: 'Frontend',
-        label: 'Engineering',
-        items: [
-          'Built a GPT-powered test automation tool that generated test cases from JSON/YAML specs, reducing manual QA work.',
-          'Built an AWS Lambda automation for FreshSales that improved lead response times and raised customer engagement by 25%.',
-        ],
-      },
+    bullets: [
+      ['Frontend', 'Built a GPT-powered tool that generates test cases from API specs, reducing manual QA work.'],
+      ['Frontend', 'Automated lead follow-up in FreshSales with AWS Lambda, raising customer engagement by 25%.'],
     ],
   },
   {
@@ -141,56 +91,19 @@ export const experience = [
     dates: 'Aug 2022 – Dec 2022',
     place: 'Dubai',
     earlier: true,
-    groups: [
-      {
-        tag: null,
-        label: 'Data',
-        items: [
-          'Built real-time banking dashboards in MicroStrategy and PostgreSQL.',
-          'Migrated reporting to Power BI, cutting report generation time.',
-        ],
-      },
+    bullets: [
+      [null, 'Built real-time banking dashboards in MicroStrategy and PostgreSQL, then moved reporting to Power BI to speed up report generation.'],
     ],
   },
 ];
 
 export const projects = [
-  {
-    name: 'Visalaw.ai',
-    tags: ['PM', 'Frontend'],
-    role: 'PM · Frontend',
-    blurb: 'AI legal drafting platform, taken from concept to production. Used across 100+ firms.',
-  },
-  {
-    name: 'RichAPI Enterprise SSO',
-    tags: ['Frontend'],
-    role: 'Frontend / Full-stack',
-    blurb: 'SAML 2.0 via Okta on Supabase Auth, tested end to end and taken to production.',
-  },
-  {
-    name: 'RichAPI Access Control',
-    tags: ['PM'],
-    role: 'PM · System design',
-    blurb: 'Org/team permissions, credit caps and explicit-deny endpoint blocking.',
-  },
-  {
-    name: 'RichAPI Admin Dashboard',
-    tags: ['PM', 'Frontend', 'Design'],
-    role: 'PM · Frontend · Design',
-    blurb: 'Internal ops console: tenants, provider health, routing and economics.',
-  },
-  {
-    name: 'RichAPI Website Redesign',
-    tags: ['PM', 'Design'],
-    role: 'PM · Design direction',
-    blurb: 'Designer selection, homepage direction and a themed Figma system.',
-  },
-  {
-    name: 'Job tracker',
-    tags: ['Frontend'],
-    role: 'Engineering · personal tool',
-    blurb: 'YAML-configured tracker that monitors company ATS endpoints across role categories.',
-  },
+  { name: 'Visalaw.ai', tags: ['PM', 'Frontend'], role: 'PM · Frontend', blurb: 'AI legal drafting, from concept to 100+ law firms.' },
+  { name: 'Enterprise SSO', tags: ['Frontend'], role: 'Full-stack · RichAPI', blurb: 'Company sign-in through Okta, taken to production.' },
+  { name: 'Access control', tags: ['PM'], role: 'PM · System design · RichAPI', blurb: 'Team permissions and spending limits for enterprise accounts.' },
+  { name: 'Operations dashboard', tags: ['PM', 'Frontend', 'Design'], role: 'PM · Frontend · Design · RichAPI', blurb: 'One internal console for customers, providers, routing and costs.' },
+  { name: 'Website redesign', tags: ['PM', 'Design'], role: 'PM · Design direction · RichAPI', blurb: 'New homepage direction and a themed Figma system.' },
+  { name: 'Job tracker', tags: ['Frontend'], role: 'Personal tool', blurb: 'Watches company job boards and surfaces matching roles.' },
 ];
 
 export const skills = [

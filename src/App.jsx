@@ -72,15 +72,9 @@ function Filter({ value, onChange }) {
   );
 }
 
-function Tag({ t }) {
-  return <span className={`tag tag-${t.toLowerCase()}`}>{t}</span>;
-}
-
 function Role({ job, filter }) {
-  const [open, setOpen] = useState(!job.earlier);
-  const groups = filter === 'All' ? job.groups : job.groups.filter((g) => g.tag === filter);
-  if (!groups.length) return null;
-  const tags = [...new Set(job.groups.map((g) => g.tag).filter(Boolean))];
+  const bullets = filter === 'All' ? job.bullets : job.bullets.filter(([t]) => t === filter);
+  if (!bullets.length) return null;
   return (
     <article className={`role ${job.earlier ? 'role-earlier' : ''}`}>
       <div className="role-meta">
@@ -93,28 +87,22 @@ function Role({ job, filter }) {
           {job.note && <span className="role-note"> · {job.note}</span>}
         </h3>
         <p className="role-title">{job.title}</p>
-        <div className="role-tags">{tags.map((t) => <Tag key={t} t={t} />)}</div>
         {job.summary && <p className="role-summary">{job.summary}</p>}
-        {job.stats && (
+        {job.stats && filter === 'All' && (
           <div className="stats">
             {job.stats.map((s) => (
               <div key={s.label} className="stat"><strong>{s.value}</strong><span>{s.label}</span></div>
             ))}
           </div>
         )}
-        {job.earlier && (
-          <button className="role-toggle" onClick={() => setOpen(!open)} aria-expanded={open}>
-            {open ? 'Hide details' : 'Show details'}
-          </button>
-        )}
-        {open && groups.map((g) => (
-          <div key={g.label} className="group">
-            {job.groups.length > 1 && (
-              <p className={`group-label gl-${(g.tag || 'none').toLowerCase()}`}>{g.label}</p>
-            )}
-            <ul>{g.items.map((it) => <li key={it}>{it}</li>)}</ul>
-          </div>
-        ))}
+        <ul className="bullets">
+          {bullets.map(([t, text]) => (
+            <li key={text} className={`b-${(t || 'none').toLowerCase()}`}>
+              {t && <span className="sr-only">{t}: </span>}
+              {text}
+            </li>
+          ))}
+        </ul>
       </div>
     </article>
   );
