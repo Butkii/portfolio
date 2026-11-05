@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LineHero from './components/LineHero';
 import DotStudy from './components/DotStudy';
 import StipplePad from './components/StipplePad';
 import {
-  profile, positioning, TAGS, experience, projects, skills, education,
+  profile, positioning, TAGS, experience, skills, education,
   art, artworks, series, exhibitions,
 } from './content';
 
@@ -52,90 +52,52 @@ function SectionHead({ n, kicker, title, children }) {
   );
 }
 
-function Filter({ value, onChange }) {
-  const opts = ['All', ...TAGS];
+function Dots({ tags }) {
   return (
-    <div className="filter" role="tablist" aria-label="Filter by discipline">
-      {opts.map((o) => (
-        <button
-          key={o}
-          role="tab"
-          aria-selected={value === o}
-          className={`chip chip-${o.toLowerCase()} ${value === o ? 'is-on' : ''}`}
-          onClick={() => onChange(o)}
-        >
-          {o !== 'All' && <span className="chip-dot" />}
-          {o}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function Role({ job, filter }) {
-  const bullets = filter === 'All' ? job.bullets : job.bullets.filter(([t]) => t === filter);
-  if (!bullets.length) return null;
-  return (
-    <article className={`role ${job.earlier ? 'role-earlier' : ''}`}>
-      <div className="role-meta">
-        <p className="role-dates">{job.dates}</p>
-        <p className="role-place">{job.place}</p>
-      </div>
-      <div className="role-body">
-        <h3>
-          {job.company}
-          {job.note && <span className="role-note"> · {job.note}</span>}
-        </h3>
-        <p className="role-title">{job.title}</p>
-        {job.summary && <p className="role-summary">{job.summary}</p>}
-        {job.stats && filter === 'All' && (
-          <div className="stats">
-            {job.stats.map((s) => (
-              <div key={s.label} className="stat"><strong>{s.value}</strong><span>{s.label}</span></div>
-            ))}
-          </div>
-        )}
-        <ul className="bullets">
-          {bullets.map(([t, text]) => (
-            <li key={text} className={`b-${(t || 'none').toLowerCase()}`}>
-              {text}
-            </li>
-          ))}
-        </ul>
-      </div>
-    </article>
+    <span className="dots" aria-label={tags.join(', ')}>
+      {tags.map((t) => <span key={t} className={`pd pd-${t.toLowerCase()}`} title={t} />)}
+    </span>
   );
 }
 
 function Tech() {
-  const [filter, setFilter] = useState('All');
-  const visibleProjects = useMemo(
-    () => (filter === 'All' ? projects : projects.filter((p) => p.tags.includes(filter))),
-    [filter]
-  );
   return (
     <section id="work" className="section">
-      <SectionHead n="01" kicker="Product & engineering" title={positioning}>
-        <Filter value={filter} onChange={setFilter} />
+      <SectionHead n="01" kicker="Work" title={positioning}>
+        <p className="legend">
+          {TAGS.map((t) => (
+            <span key={t}><span className={`pd pd-${t.toLowerCase()}`} />{t}</span>
+          ))}
+        </p>
       </SectionHead>
 
-      <div className="roles">
-        {experience.map((job) => <Role key={job.company} job={job} filter={filter} />)}
-      </div>
-
-      <h3 className="sub-head">Selected projects</h3>
-      <div className="projects">
-        {visibleProjects.map((p, i) => (
-          <article key={p.name} className="project" style={{ '--i': i }}>
-            <div className="project-dots" aria-hidden="true">
-              {p.tags.map((t) => <span key={t} className={`pd pd-${t.toLowerCase()}`} />)}
-            </div>
-            <h4>{p.name}</h4>
-            <p className="project-role">{p.role}</p>
-            <p>{p.blurb}</p>
-          </article>
-        ))}
-      </div>
+      <ol className="places">
+        {experience.map((job) => {
+          const Name = job.link ? 'a' : 'span';
+          return (
+            <li key={job.company} className={`place ${job.link ? 'has-link' : ''}`}>
+              <span className="place-dates">{job.dates}</span>
+              <div className="place-main">
+                <h3>
+                  <Name
+                    className="place-name"
+                    {...(job.link ? { href: job.link, target: '_blank', rel: 'noreferrer' } : {})}
+                  >
+                    {job.company}
+                    {job.link && <span className="place-arrow" aria-hidden="true">↗</span>}
+                  </Name>
+                  {job.note && <span className="place-note">{job.note}</span>}
+                </h3>
+                <p className="place-line">{job.line}</p>
+              </div>
+              <div className="place-side">
+                <span className="place-title">{job.title}</span>
+                <Dots tags={job.tags} />
+              </div>
+            </li>
+          );
+        })}
+      </ol>
     </section>
   );
 }

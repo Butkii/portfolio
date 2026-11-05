@@ -25,85 +25,47 @@ export const positioning =
 
 export const TAGS = ['PM', 'Frontend', 'Design'];
 
-// Each bullet: [tag, text]. Tag drives the colour dot and the discipline filter.
+// One row per place. `link` is the live product; leave it out if there isn't one.
 export const experience = [
   {
     company: 'RichAPI',
     note: 'part of TexAu',
+    link: 'https://richapi.ai',
     title: 'Product Lead',
-    dates: 'Mar 2024 – Nov 2026',
-    place: 'Remote, UAE',
-    summary: 'A B2B data enrichment API.',
-    bullets: [
-      ['PM', 'Set product positioning and pricing strategy, from competitive analysis through to the pricing model customers see.'],
-      ['PM', 'Led a plan change across the entire customer base with a risk-based, phased rollout, giving existing customers time to adjust.'],
-      ['PM', 'Designed enterprise permissions and budget controls so the product could serve larger organisations.'],
-      ['Frontend', 'Built and shipped enterprise single sign-on end to end, from prototype to production.'],
-      ['Frontend', 'Building internal tools in Next.js that give the team a single view of customers, costs and performance.'],
-      ['Design', 'Led a full website redesign, from choosing the design partner to setting creative direction and the design system.'],
-      ['PM', 'Managed enterprise customer escalations and interviewed engineering hires.'],
-    ],
+    dates: '2024 – 2026',
+    tags: ['PM', 'Frontend', 'Design'],
+    line: 'Led product for a B2B data API, from strategy and pricing to enterprise features, and built parts of it myself.',
   },
   {
-    company: 'TexAu',
-    note: 'Visalaw.ai',
+    company: 'Visalaw.ai',
+    note: 'at TexAu',
+    link: 'https://www.visalaw.ai',
     title: 'Software Engineer → Product',
-    dates: 'Mar 2024 – 2025',
-    place: 'Remote, UAE',
-    summary: 'An AI legal drafting platform for US immigration attorneys.',
-    stats: [
-      { value: '100+', label: 'law firms using it' },
-      { value: '<3 min', label: 'document generation, down from 30–40' },
-    ],
-    bullets: [
-      ['PM', 'Helped take Visalaw.ai from concept to production; it\u2019s now used by legal teams across 100+ US immigration law firms.'],
-      ['PM', 'Worked directly with attorneys to turn their biggest workflow bottlenecks into product requirements.'],
-      ['Frontend', 'Built an AI document-processing pipeline that cut draft preparation from hours to minutes.'],
-      ['Frontend', 'Cut document generation from 30–40 minutes to under 3 by reworking how data was queried, cached and processed.'],
-      ['Frontend', 'Built subscription billing with Stripe, enabling self-serve sign-up alongside enterprise plans.'],
-      ['Frontend', 'Built the core user workflows in Next.js and React.'],
-    ],
+    dates: '2024 – 2025',
+    tags: ['PM', 'Frontend'],
+    line: 'Helped take an AI legal drafting platform from concept to production. It\u2019s now used by 100+ US immigration law firms.',
   },
   {
     company: 'Coders Launchpad UAE',
     title: 'Volunteer Designer',
-    dates: 'Dec 2023 – Jun 2024',
-    place: 'Dubai',
-    bullets: [
-      ['Design', 'Designed social posts, posters and booklets in Figma for community events and workshops at CodersHQ.'],
-      ['Design', 'Designed and built Webflow websites with a focus on usability.'],
-    ],
+    dates: '2023 – 2024',
+    tags: ['Design'],
+    line: 'Designed event collateral and Webflow sites for a UAE coding community.',
   },
   {
     company: 'Beno Technologies',
-    title: 'Software Engineer (Intern)',
-    dates: 'Jun 2023 – Aug 2023',
-    place: 'Dubai',
-    earlier: true,
-    bullets: [
-      ['Frontend', 'Built a GPT-powered tool that generates test cases from API specs, reducing manual QA work.'],
-      ['Frontend', 'Automated lead follow-up in FreshSales with AWS Lambda, raising customer engagement by 25%.'],
-    ],
+    title: 'Software Engineer Intern',
+    dates: '2023',
+    tags: ['Frontend'],
+    line: 'Built AI-assisted test generation and sales workflow automation.',
   },
   {
     company: 'Solution BI',
     title: 'Junior BI Developer',
-    dates: 'Aug 2022 – Dec 2022',
-    place: 'Dubai',
-    earlier: true,
-    bullets: [
-      [null, 'Built real-time banking dashboards in MicroStrategy and PostgreSQL, then moved reporting to Power BI to speed up report generation.'],
-    ],
+    dates: '2022',
+    tags: [],
+    line: 'Built real-time banking dashboards and moved reporting to Power BI.',
   },
-];
-
-export const projects = [
-  { name: 'Visalaw.ai', tags: ['PM', 'Frontend'], role: 'PM · Frontend', blurb: 'AI legal drafting, from concept to 100+ law firms.' },
-  { name: 'Enterprise SSO', tags: ['Frontend'], role: 'Full-stack · RichAPI', blurb: 'Single sign-on for enterprise customers, built end to end.' },
-  { name: 'Access control', tags: ['PM'], role: 'PM · System design · RichAPI', blurb: 'Permissions and budget controls for large teams.' },
-  { name: 'Operations dashboard', tags: ['PM', 'Frontend', 'Design'], role: 'PM · Frontend · Design · RichAPI', blurb: 'A single internal view of customers, costs and performance.' },
-  { name: 'Website redesign', tags: ['PM', 'Design'], role: 'PM · Design direction · RichAPI', blurb: 'Creative direction and a design system for the new site.' },
-  { name: 'Job tracker', tags: ['Frontend'], role: 'Personal tool', blurb: 'Watches company job boards and surfaces matching roles.' },
 ];
 
 export const skills = [
