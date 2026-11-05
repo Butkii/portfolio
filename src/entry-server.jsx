@@ -7,3 +7,4 @@ export function render(panel) {
 }
 
 export { PAGES, SITE, urlFor } from './seo';
+export { profile, experience, skills, education, art } from './content';

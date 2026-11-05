@@ -7,7 +7,7 @@ import path from 'node:path';
 
 const dist = path.resolve('dist');
 const ssr = path.resolve('dist-ssr');
-const { render, PAGES, SITE, urlFor } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
+const { render, PAGES, SITE, urlFor, profile, experience, skills, education, art } = await import(pathToFileURL(path.join(ssr, 'entry-server.js')).href);
 const template = await readFile(path.join(dist, 'index.html'), 'utf8');
 
 // The CSP in vercel.json allows the inline theme script by hash; fail the
@@ -58,5 +58,35 @@ ${ids.map((id) => `  <url><loc>${urlFor(id)}</loc><lastmod>${today}</lastmod><pr
 </urlset>
 `;
 await writeFile(path.join(dist, 'sitemap.xml'), sitemap);
+// llms.txt: a plain-text summary for AI assistants, built from the same content.
+const llms = `# ${profile.name}
+
+> ${profile.roles.join(', ')}, based in ${profile.location}. ${PAGES[''].description}
+
+${profile.longBio.join('\n\n')}
+
+## Work
+${experience.map((j) => `- [${j.company}](${j.link || SITE}): ${j.title}${j.current ? ' (current)' : ''}. ${j.line}`).join('\n')}
+
+## What I do
+${skills.map((s) => `- ${s.title}: ${s.line} ${s.items.join(', ')}.`).join('\n')}
+
+## Education
+${education.map((e) => `- ${e.school}: ${e.degree} (${e.detail}). ${e.points.join('; ')}.`).join('\n')}
+
+## Art
+- [${art.name}](${profile.links.instagram}): ${art.intro}
+
+## Pages
+${Object.keys(PAGES).filter(Boolean).map((id) => `- [${PAGES[id].title}](${urlFor(id)}): ${PAGES[id].description}`).join('\n')}
+
+## Contact
+- Email: ${profile.links.email}
+${profile.links.calendar ? `- Book a call: ${profile.links.calendar}\n` : ''}- LinkedIn: ${profile.links.linkedin}
+- GitHub: ${profile.links.github}
+- Instagram: ${profile.links.instagram}
+`;
+await writeFile(path.join(dist, 'llms.txt'), llms);
+
 await rm(ssr, { recursive: true, force: true });
 console.log(`prerendered ${ids.length} pages + 404 and sitemap for ${SITE}`);
