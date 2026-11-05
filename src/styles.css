@@ -153,27 +153,47 @@ button { font: inherit; color: inherit; }
 .hero-links a::after { content: ' →'; }
 .hero-links a:hover { border-color: var(--vermilion); }
 .hero-art { width: 100%; max-width: 540px; justify-self: end; }
+.illo-wrap { position: relative; width: 100%; aspect-ratio: 1; }
 .illo { display: block; width: 100%; aspect-ratio: 1; color: var(--ink); overflow: visible; }
-.illo > * {
+.illo-lamp, .illo-glow { position: absolute; inset: 0; pointer-events: none; }
+.illo-wrap > .illo:not(.illo-glow):not(.illo-lamp) { position: relative; }
+.illo-glow .light { opacity: 0; transition: opacity 0.5s ease; }
+.lamp-on .illo-glow .light { opacity: 1; }
+.illo [pathLength] {
   stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
   stroke-dasharray: 1; stroke-dashoffset: 1;
   animation: illo-draw 0.9s cubic-bezier(.6,.1,.3,1) forwards;
   animation-delay: calc(var(--d) * 22ms);
 }
 /* solid ink areas fill in after their outline is drawn */
-.illo > [fill='currentColor'] {
+.illo [pathLength][fill='currentColor'] {
   fill-opacity: 0;
   animation: illo-draw 0.9s cubic-bezier(.6,.1,.3,1) forwards, illo-ink 0.5s ease forwards;
   animation-delay: calc(var(--d) * 22ms), calc(var(--d) * 22ms + 700ms);
 }
 @keyframes illo-draw { to { stroke-dashoffset: 0; } }
+.illo-lamp path, .illo-lamp ellipse { stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.illo-lamp .bulb { transition: fill 0.2s; fill-opacity: 0; animation: illo-ink 0.3s 1.4s forwards, hint 0.9s 2.6s 1; }
+.illo-lamp.swing .bulb { animation: none; fill-opacity: 1; }
+.lamp-on .illo-lamp .bulb { fill: var(--ochre); animation: illo-ink 0s forwards; }
+/* one flicker after the draw-in, to hint the lamp is clickable */
+@keyframes hint { 0%, 100% { fill: var(--paper); } 20%, 45% { fill: currentColor; } 30% { fill: var(--paper); } }
+.illo-lamp .lamp-swing { transform-origin: 300px 0; transform-box: view-box; }
+.illo-lamp.swing .lamp-swing { animation: lamp-swing 1.4s cubic-bezier(.3,.6,.4,1); }
+.illo-lamp.swing [pathLength] { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
+@keyframes lamp-swing { 0% { transform: rotate(0); } 18% { transform: rotate(5deg); } 40% { transform: rotate(-3deg); } 62% { transform: rotate(1.5deg); } 82% { transform: rotate(-0.5deg); } 100% { transform: rotate(0); } }
+.lamp-hit {
+  position: absolute; width: 16%; aspect-ratio: 1; transform: translate(-50%, -50%);
+  border: 0; border-radius: 50%; background: transparent; cursor: pointer; padding: 0;
+}
+.lamp-hit:focus-visible { outline: 2px dashed var(--ink); outline-offset: 2px; }
 @keyframes illo-ink { to { fill-opacity: 1; } }
-.illo > .eye {
+.illo .eye {
   transform-box: fill-box; transform-origin: center;
   animation: illo-draw 0.9s forwards, illo-ink 0.3s 1s forwards, blink 5s 3s infinite;
 }
 @keyframes blink { 0%, 94%, 100% { transform: scaleY(1); } 97% { transform: scaleY(0.1); } }
-.illo > .steam {
+.illo .steam {
   stroke-width: 1.3; stroke-dasharray: 0.35 1; stroke-dashoffset: 0.35; opacity: 0;
   animation: steam 3.2s ease-in-out infinite; animation-delay: calc(2s + var(--s) * 1.05s);
 }
@@ -183,8 +203,8 @@ button { font: inherit; color: inherit; }
   100% { stroke-dashoffset: -1; opacity: 0; transform: translateY(-10px); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .illo > *, .illo > [fill='currentColor'], .illo > .eye { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
-  .illo > .steam { display: none; }
+  .illo > *, .illo > [fill='currentColor'], .illo .eye { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
+  .illo .steam { display: none; }
 }
 @media (max-width: 820px) {
   .hero { grid-template-columns: 1fr; }
@@ -252,7 +272,6 @@ button { font: inherit; color: inherit; }
 .bullets .b-pm::before { background: var(--pm); }
 .bullets .b-frontend::before { background: var(--fe); }
 .bullets .b-design::before { background: var(--de); }
-.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .role-earlier .role-body h3 { font-size: 20px; }
 @media (max-width: 720px) {
   .role { grid-template-columns: 1fr; gap: 8px; }

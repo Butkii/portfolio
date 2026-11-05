@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react';
-import { LINE_MARKUP, VIEW, MUG, EYE } from './girl.svg.js';
+import { useEffect, useRef, useState } from 'react';
+import { LINE_MARKUP, LAMP_MARKUP, GLOW_MARKUP, LAMP, VIEW, MUG, EYE } from './girl.svg.js';
 
 // Ink line-art illustration. It draws itself in on load (CSS), she blinks,
-// steam curls up from the mug, and her eye follows the cursor.
+// steam curls up from the mug, her eye follows the cursor, and the lamp
+// swings and switches on/off when clicked.
 
 const STEAM = [-6, 0, 6].map(
   (dx, i) =>
@@ -11,6 +12,12 @@ const STEAM = [-6, 0, 6].map(
 
 export default function LineHero({ label }) {
   const ref = useRef(null);
+  const [on, setOn] = useState(false);
+  const [swing, setSwing] = useState(0);
+  const toggle = () => {
+    setOn((v) => !v);
+    setSwing((n) => n + 1);
+  };
 
   useEffect(() => {
     const svg = ref.current;
@@ -47,13 +54,37 @@ export default function LineHero({ label }) {
   }, []);
 
   return (
-    <svg
-      ref={ref}
-      className="illo"
-      viewBox={`0 0 ${VIEW} ${VIEW}`}
-      role="img"
-      aria-label={label}
-      dangerouslySetInnerHTML={{ __html: LINE_MARKUP + STEAM }}
-    />
+    <div className={`illo-wrap ${on ? 'lamp-on' : ''}`}>
+      <svg
+        className="illo illo-glow"
+        viewBox={`0 0 ${VIEW} ${VIEW}`}
+        aria-hidden="true"
+        dangerouslySetInnerHTML={{ __html: GLOW_MARKUP }}
+      />
+      <svg
+        ref={ref}
+        className="illo"
+        viewBox={`0 0 ${VIEW} ${VIEW}`}
+        role="img"
+        aria-label={label}
+        dangerouslySetInnerHTML={{ __html: LINE_MARKUP + STEAM }}
+      />
+      <svg
+        key={swing}
+        className={`illo illo-lamp ${swing ? 'swing' : ''}`}
+        viewBox={`0 0 ${VIEW} ${VIEW}`}
+        aria-hidden="true"
+        dangerouslySetInnerHTML={{ __html: LAMP_MARKUP }}
+      />
+      <button
+        type="button"
+        className="lamp-hit"
+        style={{ left: `${(LAMP.x / VIEW) * 100}%`, top: `${((LAMP.y - 14) / VIEW) * 100}%` }}
+        aria-pressed={on}
+        aria-label={on ? 'Switch the lamp off' : 'Switch the lamp on'}
+        title={on ? 'Lights off' : 'Lights on'}
+        onClick={toggle}
+      />
+    </div>
   );
 }

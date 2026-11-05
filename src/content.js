@@ -33,15 +33,15 @@ export const experience = [
     title: 'Product Lead',
     dates: 'Mar 2024 – Nov 2026',
     place: 'Remote, UAE',
-    summary: 'A B2B data enrichment API that combines many data providers behind one call.',
+    summary: 'A B2B data enrichment API.',
     bullets: [
-      ['PM', 'Defined positioning and pricing around multi-category coverage and paying only for successful results, setting RichAPI apart from single-source providers.'],
-      ['PM', 'Redesigned usage tiers for every customer account through a risk-based, phased rollout, matching limits to provider capacity with advance notice for active customers.'],
-      ['PM', 'Designed the access-control model for enterprise teams, covering team separation, spending limits and SSO onboarding, so larger customers can manage usage on their own.'],
-      ['Frontend', 'Shipped enterprise SSO with Okta on Supabase Auth, from prototype to production, so customers can sign in through their company identity provider.'],
-      ['Frontend', 'Building an internal operations dashboard in Next.js and Supabase that gives the team one place to manage customers, providers, routing and costs.'],
-      ['Design', 'Led the website redesign by choosing the design partner, setting the homepage direction and building a light/dark theme system in Figma.'],
-      ['PM', 'Handled customer escalations and interviewed engineering candidates as the team grew.'],
+      ['PM', 'Set product positioning and pricing strategy, from competitive analysis through to the pricing model customers see.'],
+      ['PM', 'Led a plan change across the entire customer base with a risk-based, phased rollout, giving existing customers time to adjust.'],
+      ['PM', 'Designed enterprise permissions and budget controls so the product could serve larger organisations.'],
+      ['Frontend', 'Built and shipped enterprise single sign-on end to end, from prototype to production.'],
+      ['Frontend', 'Building internal tools in Next.js that give the team a single view of customers, costs and performance.'],
+      ['Design', 'Led a full website redesign, from choosing the design partner to setting creative direction and the design system.'],
+      ['PM', 'Managed enterprise customer escalations and interviewed engineering hires.'],
     ],
   },
   {
@@ -57,11 +57,11 @@ export const experience = [
     ],
     bullets: [
       ['PM', 'Helped take Visalaw.ai from concept to production; it\u2019s now used by legal teams across 100+ US immigration law firms.'],
-      ['PM', 'Turned attorney interviews into product requirements across evidence, drafting and case preparation, so the roadmap went after real workflow bottlenecks.'],
-      ['Frontend', 'Built an AI document pipeline with AWS Textract and OpenAI that cut draft preparation from hours to minutes.'],
-      ['Frontend', 'Cut document generation from 30–40 minutes to under 3 through query, caching and parallel-processing work.'],
-      ['Frontend', 'Built subscriptions, trials and credit billing with Stripe, opening up self-serve sign-up and enterprise plans.'],
-      ['Frontend', 'Built the onboarding, collaboration and document workflows in Next.js and React.'],
+      ['PM', 'Worked directly with attorneys to turn their biggest workflow bottlenecks into product requirements.'],
+      ['Frontend', 'Built an AI document-processing pipeline that cut draft preparation from hours to minutes.'],
+      ['Frontend', 'Cut document generation from 30–40 minutes to under 3 by reworking how data was queried, cached and processed.'],
+      ['Frontend', 'Built subscription billing with Stripe, enabling self-serve sign-up alongside enterprise plans.'],
+      ['Frontend', 'Built the core user workflows in Next.js and React.'],
     ],
   },
   {
@@ -99,10 +99,10 @@ export const experience = [
 
 export const projects = [
   { name: 'Visalaw.ai', tags: ['PM', 'Frontend'], role: 'PM · Frontend', blurb: 'AI legal drafting, from concept to 100+ law firms.' },
-  { name: 'Enterprise SSO', tags: ['Frontend'], role: 'Full-stack · RichAPI', blurb: 'Company sign-in through Okta, taken to production.' },
-  { name: 'Access control', tags: ['PM'], role: 'PM · System design · RichAPI', blurb: 'Team permissions and spending limits for enterprise accounts.' },
-  { name: 'Operations dashboard', tags: ['PM', 'Frontend', 'Design'], role: 'PM · Frontend · Design · RichAPI', blurb: 'One internal console for customers, providers, routing and costs.' },
-  { name: 'Website redesign', tags: ['PM', 'Design'], role: 'PM · Design direction · RichAPI', blurb: 'New homepage direction and a themed Figma system.' },
+  { name: 'Enterprise SSO', tags: ['Frontend'], role: 'Full-stack · RichAPI', blurb: 'Single sign-on for enterprise customers, built end to end.' },
+  { name: 'Access control', tags: ['PM'], role: 'PM · System design · RichAPI', blurb: 'Permissions and budget controls for large teams.' },
+  { name: 'Operations dashboard', tags: ['PM', 'Frontend', 'Design'], role: 'PM · Frontend · Design · RichAPI', blurb: 'A single internal view of customers, costs and performance.' },
+  { name: 'Website redesign', tags: ['PM', 'Design'], role: 'PM · Design direction · RichAPI', blurb: 'Creative direction and a design system for the new site.' },
   { name: 'Job tracker', tags: ['Frontend'], role: 'Personal tool', blurb: 'Watches company job boards and surfaces matching roles.' },
 ];
 

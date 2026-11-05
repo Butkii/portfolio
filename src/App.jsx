@@ -98,7 +98,6 @@ function Role({ job, filter }) {
         <ul className="bullets">
           {bullets.map(([t, text]) => (
             <li key={text} className={`b-${(t || 'none').toLowerCase()}`}>
-              {t && <span className="sr-only">{t}: </span>}
               {text}
             </li>
           ))}

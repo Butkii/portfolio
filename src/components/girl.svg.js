@@ -7,9 +7,6 @@ export const MUG = { x: 367, y: 254 };
 export const EYE = { x: 190, y: 120 };
 
 const S = [
-  // pendant lamp
-  { t: 'path', a: { d: 'M300 0 L300 72' }, line: true },
-  { t: 'path', a: { d: 'M278 94 Q278 72 300 72 Q322 72 322 94 Z' }, fill: 'ink', line: true },
 
   // floor plant
   { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302' }, line: true, fill: 'none' },
@@ -76,3 +73,32 @@ export const LINE_MARKUP = S.filter((s) => s.line)
     return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${i}"/>`;
   })
   .join('');
+
+// Pendant lamp, rendered separately so it can swing and switch on.
+export const LAMP = { x: 300, y: 94 };
+
+// Warm light, rendered behind the drawing so paper-filled shapes sit on top.
+export const GLOW_MARKUP = `
+<defs>
+  <radialGradient id="lamp-glow">
+    <stop offset="0" style="stop-color: var(--ochre); stop-opacity: 0.55"/>
+    <stop offset="0.45" style="stop-color: var(--ochre); stop-opacity: 0.18"/>
+    <stop offset="1" style="stop-color: var(--ochre); stop-opacity: 0"/>
+  </radialGradient>
+  <linearGradient id="lamp-beam" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" style="stop-color: var(--ochre); stop-opacity: 0.16"/>
+    <stop offset="1" style="stop-color: var(--ochre); stop-opacity: 0.03"/>
+  </linearGradient>
+</defs>
+<g class="light">
+  <path d="M286 98 L314 98 L372 286 L228 286 Z" fill="url(#lamp-beam)"/>
+  <ellipse cx="300" cy="104" rx="70" ry="56" fill="url(#lamp-glow)"/>
+  <ellipse cx="300" cy="284" rx="96" ry="16" fill="url(#lamp-glow)"/>
+</g>`;
+
+export const LAMP_MARKUP = `
+<g class="lamp-swing">
+  <path d="M300 0 L300 72" pathLength="1" style="--d:0"/>
+  <path d="M278 94 Q278 72 300 72 Q322 72 322 94 Z" fill="currentColor" pathLength="1" style="--d:1"/>
+  <ellipse class="bulb" cx="300" cy="96" rx="6" ry="3.5" fill="var(--paper)"/>
+</g>`;
