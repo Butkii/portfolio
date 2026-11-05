@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 // Side panel (bottom sheet on small screens) that holds one part of the site.
-export default function Panel({ open, title, onClose, children }) {
+export default function Panel({ open, title, nav, onClose, children }) {
   const closeRef = useRef(null);
   const bodyRef = useRef(null);
 
@@ -26,7 +26,7 @@ export default function Panel({ open, title, onClose, children }) {
         inert={open ? undefined : ''}
       >
         <header className="panel-head">
-          <p className="panel-title">{title}</p>
+          {nav || <p className="panel-title">{title}</p>}
           <button ref={closeRef} type="button" className="panel-close" onClick={onClose} aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>

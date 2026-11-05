@@ -3,6 +3,7 @@ import Scene, { HOTSPOTS } from './components/Scene';
 import Panel from './components/Panel';
 import InstagramProfile from './components/InstagramProfile';
 import { profile, positioning, TAGS, experience, skills, education, art } from './content';
+import { PAGES, urlFor } from './seo';
 
 const IDS = HOTSPOTS.map((h) => h.id);
 const TITLES = { tech: 'Tech', about: 'About', art: 'Art', contact: 'Contact' };
@@ -23,24 +24,57 @@ function useTheme() {
   return () => setTheme(isDark() ? 'light' : 'dark');
 }
 
-// Open panel is mirrored in the URL hash, so #tech etc. are shareable and Back closes it.
-function useHashPanel() {
-  const read = () => {
-    const h = window.location.hash.slice(1);
-    return IDS.includes(h) ? h : null;
-  };
-  const [active, setActive] = useState(read);
+// Each panel is a real page (/tech, /about, /art, /contact), prerendered at build
+// time for search engines. In the browser, opening a panel updates the URL and
+// title without a reload, and Back closes it.
+export const panelFromPath = (path) => {
+  const id = (path || '/').replace(/^\/+|\/+$/g, '');
+  return IDS.includes(id) ? id : null;
+};
+
+function setMeta(id) {
+  const page = PAGES[id || ''];
+  document.title = page.title;
+  document.querySelector('meta[name="description"]')?.setAttribute('content', page.description);
+  document.querySelector('link[rel="canonical"]')?.setAttribute('href', urlFor(id));
+}
+
+function usePathPanel(initial) {
+  const [active, setActive] = useState(initial);
   useEffect(() => {
-    const onHash = () => setActive(read());
-    window.addEventListener('hashchange', onHash);
-    return () => window.removeEventListener('hashchange', onHash);
+    // Old #tech-style links keep working.
+    const fromHash = () => {
+      const h = window.location.hash.slice(1);
+      if (!IDS.includes(h)) return false;
+      history.replaceState({ panel: h }, '', `/${h}`);
+      setActive(h);
+      return true;
+    };
+    fromHash();
+    const onPop = () => { if (!fromHash()) setActive(panelFromPath(window.location.pathname)); };
+    window.addEventListener('popstate', onPop);
+    window.addEventListener('hashchange', onPop);
+    return () => {
+      window.removeEventListener('popstate', onPop);
+      window.removeEventListener('hashchange', onPop);
+    };
   }, []);
+  useEffect(() => { setMeta(active); }, [active]);
   const open = useCallback((id) => {
-    if (window.location.hash !== `#${id}`) window.location.hash = id;
+    const current = panelFromPath(window.location.pathname);
+    if (current === id) {
+      // already there
+    } else if (current) {
+      // switching panels: replace, so closing returns to the desk, not the previous panel
+      history.replaceState({ ...history.state, panel: id }, '', `/${id}`);
+    } else {
+      history.pushState({ panel: id, pushed: true }, '', `/${id}`);
+    }
     setActive(id);
   }, []);
   const close = useCallback(() => {
-    history.replaceState(null, '', window.location.pathname + window.location.search);
+    if (history.state?.pushed) history.back();
+    else history.replaceState(null, '', '/');
     setActive(null);
   }, []);
   return [active, open, close];
@@ -165,9 +199,9 @@ function Contact() {
 
 const CONTENT = { tech: Tech, about: About, art: Art, contact: Contact };
 
-export default function App() {
+export default function App({ initialPanel = null }) {
   const toggleTheme = useTheme();
-  const [active, open, close] = useHashPanel();
+  const [active, open, close] = usePathPanel(initialPanel);
   // Keep the last panel's content mounted while it slides out.
   const [shown, setShown] = useState(active);
   const opener = useRef(null);
@@ -210,6 +244,24 @@ export default function App() {
 
   const Body = shown ? CONTENT[shown] : null;
 
+  // Section links: in the top menu, and as tabs inside the open panel.
+  const links = (where) =>
+    MENU.map((id) => (
+      <a
+        key={`${where}-${id}`}
+        href={`/${id}`}
+        className={active === id ? 'is-active' : ''}
+        aria-current={active === id ? 'page' : undefined}
+        onClick={(e) => {
+          if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+          e.preventDefault();
+          handleOpen(id, where === 'menu' ? e.currentTarget : opener.current);
+        }}
+      >
+        {TITLES[id]}
+      </a>
+    ));
+
   return (
     <div ref={stageRef} className={`stage ${active ? 'has-panel' : ''}`}>
       <header className="topbar">
@@ -218,17 +270,7 @@ export default function App() {
           <p className="roles">{profile.roles.join(' · ')}</p>
         </div>
         <nav className="menu" aria-label="Sections">
-          {MENU.map((id) => (
-            <button
-              key={id}
-              type="button"
-              className={active === id ? 'is-active' : ''}
-              aria-current={active === id ? 'true' : undefined}
-              onClick={(e) => handleOpen(id, e.currentTarget)}
-            >
-              {TITLES[id]}
-            </button>
-          ))}
+          {links('menu')}
           <button type="button" className="theme-btn" onClick={toggleTheme} aria-label="Toggle light or dark theme">
             <span className="theme-icon" />
           </button>
@@ -245,7 +287,12 @@ export default function App() {
         <span>© {new Date().getFullYear()} Bhakti Ghaghda · {profile.location}</span>
       </footer>
 
-      <Panel open={!!active} title={shown ? TITLES[shown] : ''} onClose={handleClose}>
+      <Panel
+        open={!!active}
+        title={shown ? TITLES[shown] : ''}
+        nav={<nav className="panel-tabs" aria-label="Sections">{links('tabs')}</nav>}
+        onClose={handleClose}
+      >
         {Body && <Body />}
       </Panel>
     </div>

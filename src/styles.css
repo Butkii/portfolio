@@ -66,12 +66,12 @@ button { font: inherit; color: inherit; }
 .name { font-size: clamp(30px, 3.4vw, 48px); font-weight: 400; letter-spacing: -0.025em; line-height: 1; }
 .roles { margin-top: 10px; font-size: 14px; color: var(--muted); }
 .menu { display: flex; align-items: center; gap: 4px; }
-.menu button:not(.theme-btn) {
-  background: none; border: 0; cursor: pointer; padding: 6px 10px; border-radius: 999px; font-size: 14px; color: var(--ink-2);
+.menu a {
+  text-decoration: none; padding: 6px 10px; border-radius: 999px; font-size: 14px; color: var(--ink-2);
   transition: background 0.2s, color 0.2s;
 }
-.menu button:not(.theme-btn):hover { color: var(--ink); background: var(--paper-2); }
-.menu button.is-active { background: var(--ink); color: var(--paper); }
+.menu a:hover { color: var(--ink); background: var(--paper-2); }
+.menu a.is-active { background: var(--ink); color: var(--paper); }
 .theme-btn {
   width: 34px; height: 34px; margin-left: 8px; border-radius: 50%; border: 1px solid var(--line); background: transparent;
   display: grid; place-items: center; cursor: pointer;
@@ -194,13 +194,22 @@ button { font: inherit; color: inherit; }
   position: fixed; top: 0; right: 0; bottom: 0; z-index: 50; width: var(--panel-w);
   display: flex; flex-direction: column; background: var(--paper);
   border-left: 1px solid var(--line); box-shadow: -24px 0 60px -30px rgba(0,0,0,0.35);
-  transform: translateX(102%); transition: transform 0.55s cubic-bezier(.2,.8,.2,1);
+  transform: translateX(102%); visibility: hidden;
+  transition: transform 0.55s cubic-bezier(.2,.8,.2,1), visibility 0s linear 0.55s;
 }
-.panel.is-open { transform: none; }
+.panel.is-open { transform: none; visibility: visible; transition: transform 0.55s cubic-bezier(.2,.8,.2,1), visibility 0s; }
 .panel-head {
   display: flex; align-items: center; justify-content: space-between;
   padding: 18px 28px; border-bottom: 1px dotted var(--line);
 }
+.panel-tabs { display: flex; gap: 2px; flex-wrap: wrap; }
+.panel-tabs a {
+  text-decoration: none; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+  padding: 6px 10px; border-radius: 999px; transition: color 0.2s, background 0.2s;
+}
+.panel-tabs a:hover { color: var(--ink); background: var(--paper-2); }
+.panel-tabs a.is-active { color: var(--ink); background: var(--paper-2); }
+.panel-head { padding-left: 18px !important; }
 .panel-title { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .panel-close {
   width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: transparent; cursor: pointer;
@@ -284,7 +293,7 @@ button { font: inherit; color: inherit; }
 @media (max-width: 720px) {
   .topbar { flex-direction: column; gap: 14px; padding-top: 18px; }
   .menu { width: 100%; justify-content: space-between; }
-  .menu button:not(.theme-btn) { padding: 6px 8px; }
+  .menu a { padding: 6px 8px; }
   .desk { justify-content: flex-start; padding: 20px 0 0; }
   .desk-scroll {
     display: block; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
