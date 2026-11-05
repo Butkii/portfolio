@@ -8,7 +8,7 @@
 export const MINX = -130;
 export const W = 530;
 export const H = 400;
-export const MUG = { x: 367, y: 254 };
+export const MUG = { x: 367, y: 206 };
 export const EYE = { x: 190, y: 120 };
 export const LAMP = { x: 300, y: 94 };
 
@@ -63,9 +63,9 @@ const S = [
   { t: 'path', a: { d: 'M122 254 Q150 260 190 248' }, line: true, fill: 'none' },
 
   // back arm, front arm, hand
-  { t: 'path', a: { d: 'M176 192 Q200 220 216 244 L236 262 L246 262 L242 272 L226 270 L204 252 Q182 228 166 206 Z' }, line: true },
-  { t: 'path', a: { d: 'M158 186 Q176 214 194 240 L230 270 L248 272 L248 282 L224 282 L184 254 Q160 224 146 196 Z' }, line: true },
-  { t: 'path', a: { d: 'M246 270 Q258 268 262 276 L252 284 L244 282 Z' }, line: true },
+  { t: 'path', a: { d: 'M176 192 Q192 214 202 228 L238 222 L242 224 L240 232 L234 233 L200 240 Q182 222 166 206 Z' }, line: true },
+  { t: 'path', a: { d: 'M158 186 Q172 212 188 232 L244 226 L246 238 L186 246 Q164 222 146 196 Z' }, line: true },
+  { t: 'path', a: { d: 'M244 226 Q256 223 261 229 L252 237 L246 238 Z' }, line: true },
 
   // neck, head, face
   { t: 'path', a: { d: 'M160 148 L176 148 L178 172 L160 174 Z' }, line: true },
@@ -81,17 +81,17 @@ const S = [
   { t: 'path', a: { d: 'M146 132 Q140 96 168 90 Q196 86 202 110 Q192 100 180 104 Q166 108 162 122 Q158 134 160 148 Q150 146 146 132 Z' }, fill: 'ink', line: true },
 
   // desk
-  { t: 'rect', a: { x: 198, y: 298, width: 8, height: 78 }, line: true },
-  { t: 'rect', a: { x: 370, y: 298, width: 8, height: 78 }, line: true },
-  { t: 'rect', a: { x: 190, y: 288, width: 196, height: 10 }, line: true },
+  { t: 'rect', a: { x: 198, y: 248, width: 8, height: 128 }, line: true },
+  { t: 'rect', a: { x: 370, y: 248, width: 8, height: 128 }, line: true },
+  { t: 'rect', a: { x: 190, y: 240, width: 196, height: 8 }, line: true },
 
   // laptop (Work)
-  { t: 'path', a: { d: 'M232 280 L330 280 L334 288 L228 288 Z', class: 'obj-work' }, line: true },
-  { t: 'path', a: { d: 'M322 285 L346 200 L354 202 L330 287 Z', class: 'obj-work' }, line: true },
+  { t: 'path', a: { d: 'M232 232 L330 232 L334 240 L228 240 Z', class: 'obj-work' }, line: true },
+  { t: 'path', a: { d: 'M322 237 L346 152 L354 154 L330 239 Z', class: 'obj-work' }, line: true },
 
   // mug (Contact)
-  { t: 'path', a: { d: 'M378 266 Q390 268 388 276 Q386 284 377 282', class: 'obj-contact' }, line: true, fill: 'none' },
-  { t: 'path', a: { d: 'M356 258 L378 258 L376 288 L358 288 Z', class: 'obj-contact' }, line: true },
+  { t: 'path', a: { d: 'M378 218 Q390 220 388 228 Q386 236 377 234', class: 'obj-contact' }, line: true, fill: 'none' },
+  { t: 'path', a: { d: 'M356 210 L378 210 L376 240 L358 240 Z', class: 'obj-contact' }, line: true },
 ];
 
 const attrs = (a) => Object.entries(a).map(([k, v]) => `${k}="${v}"`).join(' ');
@@ -118,9 +118,9 @@ export const GLOW_MARKUP = `
   </linearGradient>
 </defs>
 <g class="light">
-  <path d="M286 98 L314 98 L372 286 L228 286 Z" fill="url(#lamp-beam)"/>
+  <path d="M286 98 L314 98 L360 238 L240 238 Z" fill="url(#lamp-beam)"/>
   <ellipse cx="300" cy="104" rx="70" ry="56" fill="url(#lamp-glow)"/>
-  <ellipse cx="300" cy="284" rx="96" ry="16" fill="url(#lamp-glow)"/>
+  <ellipse cx="300" cy="236" rx="90" ry="14" fill="url(#lamp-glow)"/>
 </g>`;
 
 // Pendant lamp, rendered separately so it can swing and switch on.

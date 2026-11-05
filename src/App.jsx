@@ -239,10 +239,6 @@ export default function App() {
         <div className="desk-scroll" ref={scrollRef}>
           <Scene active={active} onOpen={handleOpen} />
         </div>
-        <p className="hint">
-          <span className="hint-wide">Click around the desk. The lamp works too.</span>
-          <span className="hint-narrow">Swipe to look around, tap to open.</span>
-        </p>
       </main>
 
       <footer className="foot">

@@ -6,10 +6,10 @@ import { LINE_MARKUP, LAMP_MARKUP, GLOW_MARKUP, LAMP, MINX, W, H, MUG, EYE } fro
 // The lamp switches on/off, her eye follows the cursor, steam rises from the mug.
 
 export const HOTSPOTS = [
-  { id: 'work', label: 'Work', x1: 224, y1: 194, x2: 358, y2: 292, lx: '86%' },
+  { id: 'work', label: 'Work', x1: 224, y1: 146, x2: 358, y2: 244, lx: '86%' },
   { id: 'art', label: 'Art', x1: -120, y1: 112, x2: -10, y2: 258 },
   { id: 'about', label: 'About', x1: 46, y1: 10, x2: 110, y2: 96, below: true },
-  { id: 'contact', label: 'Contact', x1: 350, y1: 236, x2: 396, y2: 294 },
+  { id: 'contact', label: 'Contact', x1: 350, y1: 188, x2: 396, y2: 246 },
 ];
 
 const pct = (v, total) => `${(v / total) * 100}%`;
