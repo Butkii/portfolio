@@ -34,7 +34,7 @@ export const experience = [
     note: 'part of TexAu',
     link: 'https://richapi.ai',
     title: 'Product Lead',
-    dates: '2024 – 2026',
+    dates: '2024 – Present',
     tags: ['PM', 'Frontend', 'Design'],
     line: 'Led product for a B2B data API, from strategy and pricing to enterprise features, and built parts of it myself.',
   },
