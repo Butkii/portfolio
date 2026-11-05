@@ -30,15 +30,16 @@ const S = [
   { t: 'path', a: { d: 'M66 56 L78 50 L90 56 L78 62 Z', class: 'obj-about' }, line: true },
   { t: 'path', a: { d: 'M70 59 L70 66 Q78 70 86 66 L86 59 M90 56 L90 66', class: 'obj-about' }, line: true, fill: 'none' },
 
-  // floor plant: turns green and sways from the base of its stems on hover (grouped so it moves as one)
+  // floor plant: turns green and sways on hover. Leaves wilt after a while (each droops
+  // around where it meets its stem) and recover when watered with the can.
   { group: 'plant', children: [
     { t: 'rect', a: { x: 10, y: 226, width: 112, height: 104, class: 'plant-hit' }, hit: true },
     { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302' }, line: true, fill: 'none' },
-    { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)' }, line: true },
-    { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)' }, line: true },
-    { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)' }, line: true },
-    { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5 }, line: true },
-    { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)' }, line: true },
+    { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)' }, line: true, leaf: { ox: 42, oy: 274, r: -38 } },
+    { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)' }, line: true, leaf: { ox: 75, oy: 256, r: -70 } },
+    { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)' }, line: true, leaf: { ox: 94, oy: 285, r: 45 } },
+    { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5 }, line: true, leaf: { ox: 38, oy: 302, r: -32 } },
+    { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)' }, line: true, leaf: { ox: 58, oy: 300, r: -40 } },
   ] },
   { t: 'path', a: { d: 'M42 376 L52 330 L84 330 L94 376 Z' }, line: true },
 
@@ -95,8 +96,14 @@ const shape = (s, i) => {
   if (s.hit) return `<${s.t} ${attrs(s.a)} fill="transparent" stroke="none"/>`;
   const fill = s.fill === 'none' ? 'none' : s.fill === 'ink' ? 'currentColor' : 'var(--paper)';
   const w = s.w ? ` stroke-width="${s.w}"` : '';
-  return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(i * 0.7)}"/>`;
+  const el = `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(i * 0.7)}"/>`;
+  if (!s.leaf) return el;
+  const { ox, oy, r } = s.leaf;
+  return `<g class="leaf" style="--ox:${ox}px;--oy:${oy}px;--r:${r}deg">${el}</g>`;
 };
+
+// Plant region (drawing coords) the can's spout must be over to water it.
+export const PLANT_ZONE = { x1: 0, y1: 150, x2: 130, y2: 320 };
 
 export const LINE_MARKUP = S.filter((s) => s.line || s.group)
   .map((s, i) =>

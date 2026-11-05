@@ -23,11 +23,14 @@ The site is one screen: a line drawing of a desk that doubles as the navigation.
 | Easel | Art (live Instagram profile embed for @pellucidworks) |
 | Mug | Contact |
 | Lamp | Switches the light on and off |
+| Plant | Turns green and sways on hover; wilts after a while |
+| Watering can | Drag it over the plant to water it (or click / tap / Enter) |
 
-Panels slide in from the right (a bottom sheet on phones). Each panel has its own URL (`/#tech`, `/#about`, `/#art`, `/#contact`). Esc, the close button or Back closes it. The top menu reaches the same panels without the drawing.
+Panels slide in from the right (a bottom sheet on phones). Each panel is a real page (`/tech`, `/about`, `/art`, `/contact`), prerendered to static HTML at build time for search engines and link previews (`scripts/prerender.mjs`). Esc, the close button or Back closes it. The site is light by default; the toggle switches to dark. The top menu reaches the same panels without the drawing.
 
 - `src/components/girl.svg.js`: the drawing, as a list of shapes. `obj-*` classes mark the clickable objects.
 - `src/components/Scene.jsx`: hotspots, hover highlights, the intro label tour, eye tracking and the lamp.
+- `src/components/WateringCan.jsx`: the draggable can and pouring logic.
 - `src/components/Panel.jsx`: the slide-in panel.
 - `src/components/InstagramProfile.jsx`: Instagram's own profile embed, which updates automatically.
 

@@ -19,9 +19,8 @@ function useTheme() {
     else root.removeAttribute('data-theme');
     try { theme ? localStorage.setItem('theme', theme) : localStorage.removeItem('theme'); } catch {}
   }, [theme]);
-  const isDark = () =>
-    theme ? theme === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-  return () => setTheme(isDark() ? 'light' : 'dark');
+  // Light by default, whatever the device setting; the toggle switches to dark.
+  return () => setTheme(theme === 'dark' ? 'light' : 'dark');
 }
 
 // Each panel is a real page (/tech, /about, /art, /contact), prerendered at build
