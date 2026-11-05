@@ -166,7 +166,8 @@ button { font: inherit; color: inherit; }
 }
 .lamp-hit:focus-visible { outline: 2px dashed var(--ink); outline-offset: 2px; }
 
-/* hotspots: labels are always visible but quiet; they go solid on hover */
+/* hotspots: labels are always visible but quiet; they go solid on hover.
+   A label is part of its hotspot button, so hovering or clicking it acts on the object too. */
 .hotspot {
   position: absolute; background: transparent; border: 0; padding: 0; cursor: pointer; border-radius: 14px;
 }
@@ -174,7 +175,7 @@ button { font: inherit; color: inherit; }
 .hotspot-label {
   position: absolute; left: var(--lx, 50%); bottom: 100%; transform: translate(-50%, -6px);
   background: var(--paper); color: var(--ink-2); font-size: 12px; font-weight: 500; line-height: 1; letter-spacing: 0.02em;
-  padding: 6px 11px; border-radius: 999px; white-space: nowrap; pointer-events: none;
+  padding: 6px 11px; border-radius: 999px; white-space: nowrap; cursor: pointer;
   border: 1px solid var(--line);
   transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.25s ease;
   animation: label-in 0.5s ease both; animation-delay: calc(2s + var(--k, 0) * 0.28s);
