@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
-import DotHero from './components/DotHero';
+import StippleHero from './components/StippleHero';
 import DotStudy from './components/DotStudy';
 import StipplePad from './components/StipplePad';
 import {
   profile, positioning, TAGS, experience, projects, skills, education,
   art, artworks, series, exhibitions,
 } from './content';
-
-const HERO_LINES = ['Bhakti', 'Ghaghda'];
 
 function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -307,15 +305,17 @@ export default function App() {
       <Nav onTheme={toggle} />
       <main id="top">
         <section className="hero">
-          <DotHero lines={HERO_LINES} />
-          <div className="hero-copy">
-            <p className="hero-roles">
-              {profile.roles.map((r, i) => (
-                <span key={r} className={`role-pill rp-${i}`}>{r}</span>
-              ))}
-            </p>
+          <div className="hero-text">
+            <h1 className="hero-name">{profile.name}</h1>
+            <p className="hero-roles">{profile.roles.join(' · ')}</p>
             <p className="hero-bio">{profile.shortBio}</p>
-            <p className="hero-hint" aria-hidden="true">Move or tap over the name to scatter the dots</p>
+            <p className="hero-links">
+              <a href="#work">See the work</a>
+              <a href="#art">See the paintings</a>
+            </p>
+          </div>
+          <div className="hero-art">
+            <StippleHero label="Black-and-white stippled illustration of a girl working on a laptop at a desk" />
           </div>
         </section>
         <Tech />
