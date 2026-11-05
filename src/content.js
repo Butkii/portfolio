@@ -42,7 +42,7 @@ export const experience = [
     title: 'Software Engineer → Product',
     dates: '2024 – 2026',
     tags: ['PM', 'Frontend'],
-    line: 'Joined as a software engineer and moved into product, working across the company\u2019s products, including RichAPI and Visalaw.ai.',
+    line: 'Worked on TexAu v3, the latest version of the company\u2019s core platform, across engineering and product.',
   },
   {
     company: 'Visalaw.ai',
