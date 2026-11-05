@@ -6,7 +6,7 @@ export const profile = {
   roles: ['Product lead', 'Frontend engineer', 'Designer', 'Visual artist'],
   location: 'Sharjah, UAE',
   shortBio:
-    "I build products from a blank screen to live tools people rely on, and I work across all of it: deciding what to build, designing how it should feel, and writing the frontend that ships it. Outside product work, I'm a painter with a pointillism-led practice, exhibiting in Dubai under the name Pellucidworks.",
+    "I build products from a blank screen to live tools people rely on, and I work across all of it: deciding what to build, designing how it should feel, and writing the frontend that ships it. Outside product work, I'm a painter with a pointillism-led practice, exhibiting in Dubai under the name PellucidWorks.",
   longBio: [
     'I started my career as a frontend engineer and moved into product leadership, so I come at product decisions knowing what the build will actually take. At TexAu I helped take an AI legal drafting platform from concept to production, used by legal teams across 100+ US immigration law firms. As Product Lead at RichAPI, I’ve owned platform strategy, competitive positioning, access control design and internal tooling for a B2B data enrichment API.',
     'I graduated valedictorian from Murdoch University Dubai with a double major in Computer Science and Business Information Systems, and I’m working toward an MS in Computer Science at CU Boulder.',
@@ -17,6 +17,8 @@ export const profile = {
     linkedin: 'https://www.linkedin.com/in/bhakti-ghaghda/',
     github: 'https://github.com/Butkii',
     instagram: 'https://www.instagram.com/pellucidworks/',
+    // Booking page (Cal.com, Calendly, Google appointment schedule…). Leave '' to hide the button.
+    calendar: '',
   },
 };
 
@@ -103,8 +105,8 @@ export const education = [
 // ---------- ART ----------
 
 export const art = {
-  name: 'Pellucidworks',
+  name: 'PellucidWorks',
   intro:
-    'Pellucidworks is my painting practice. I work in watercolor, gouache, acrylic and mixed media, and pointillism, built up dot by dot, is now the centre of the work. Recurring subjects are birds, lanterns and quiet scenes from the places I live and travel.',
+    'PellucidWorks is my painting practice. I work in watercolor, gouache, acrylic and mixed media, and pointillism, built up dot by dot, is now the centre of the work. Recurring subjects are birds, lanterns and quiet scenes from the places I live and travel.',
   handle: '@pellucidworks',
 };

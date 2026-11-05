@@ -1,6 +1,6 @@
 # bhaktighaghda.com
 
-Personal site for Bhakti Ghaghda: product lead, frontend engineer, designer and painter (Pellucidworks).
+Personal site for Bhakti Ghaghda: product lead, frontend engineer, designer and painter (PellucidWorks).
 
 Vite + React, no CSS framework. The dot effects are hand-written canvas code, with no libraries.
 

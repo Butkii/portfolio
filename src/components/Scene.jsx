@@ -1,17 +1,16 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import WateringCan from './WateringCan';
+import { useEffect, useRef, useState } from 'react';
+import Plant from './Plant';
 import { LINE_MARKUP, LAMP_MARKUP, GLOW_MARKUP, LAMP, MINX, W, H, MUG, EYE } from './girl.svg.js';
 
 // The desk scene is the site's navigation. Objects open panels:
 // laptop -> Tech, easel -> Art, frame -> About, mug -> Contact.
-// The lamp switches on/off, her eye follows the cursor, steam rises from the mug,
-// and the plant wilts after a while until it's watered with the can.
+// The lamp switches on/off, her eye follows the cursor, steam rises from the mug.
 
 export const HOTSPOTS = [
-  { id: 'tech', label: 'Tech', x1: 224, y1: 146, x2: 358, y2: 244, lx: '86%' },
-  { id: 'art', label: 'Art', x1: -120, y1: 112, x2: -10, y2: 258 },
-  { id: 'about', label: 'About', x1: 46, y1: 10, x2: 110, y2: 96, below: true },
-  { id: 'contact', label: 'Contact', x1: 350, y1: 188, x2: 396, y2: 246 },
+  { id: 'tech', label: 'Tech', x1: 224, y1: 146, x2: 358, y2: 244, lx: '86%', k: 2 },
+  { id: 'art', label: 'Art', x1: -120, y1: 112, x2: -10, y2: 258, k: 0 },
+  { id: 'about', label: 'About', x1: 46, y1: 10, x2: 110, y2: 96, below: true, k: 1 },
+  { id: 'contact', label: 'Contact', x1: 350, y1: 188, x2: 396, y2: 246, k: 3 },
 ];
 
 const pct = (v, total) => `${(v / total) * 100}%`;
@@ -33,33 +32,9 @@ export default function Scene({ active, onOpen }) {
   const [hover, setHover] = useState(null);
   const [lampOn, setLampOn] = useState(false);
   const [swing, setSwing] = useState(0);
-  const [touring, setTouring] = useState(false);
   const sceneRef = useRef(null);
 
-  // Plant life cycle: fresh -> (a few seconds) -> wilted -> watered -> revived -> fresh -> ...
-  const [plant, setPlant] = useState('fresh');
-  const hasWilted = useRef(false);
-  useEffect(() => {
-    if (plant === 'fresh') {
-      const t = setTimeout(() => {
-        hasWilted.current = true;
-        setPlant('wilted');
-      }, hasWilted.current ? 40000 : 7000);
-      return () => clearTimeout(t);
-    }
-    if (plant === 'revived') {
-      const t = setTimeout(() => setPlant('fresh'), 3600);
-      return () => clearTimeout(t);
-    }
-  }, [plant]);
-  const onWatered = useCallback(() => setPlant((p) => (p === 'wilted' ? 'revived' : p)), []);
 
-  // Brief label tour once the drawing has finished.
-  useEffect(() => {
-    const a = setTimeout(() => setTouring(true), 1900);
-    const b = setTimeout(() => setTouring(false), 5600);
-    return () => { clearTimeout(a); clearTimeout(b); };
-  }, []);
 
   // Eye follows the cursor.
   useEffect(() => {
@@ -98,10 +73,11 @@ export default function Scene({ active, onOpen }) {
   return (
     <div
       ref={sceneRef}
-      className={`scene ${lampOn ? 'lamp-on' : ''} ${touring ? 'touring' : ''} plant-${plant}`}
+      className={`scene ${lampOn ? 'lamp-on' : ''}`}
       data-hover={lit || undefined}
     >
       <svg className="illo illo-glow" viewBox={VIEWBOX} aria-hidden="true" dangerouslySetInnerHTML={{ __html: GLOW_MARKUP }} />
+      <Plant />
       <svg
         ref={ref}
         className="illo illo-main"
@@ -118,14 +94,14 @@ export default function Scene({ active, onOpen }) {
         dangerouslySetInnerHTML={{ __html: LAMP_MARKUP }}
       />
 
-      <WateringCan sceneRef={sceneRef} thirsty={plant === 'wilted'} onWatered={onWatered} />
 
       {HOTSPOTS.map((h) => (
         <button
           key={h.id}
           type="button"
           className={`hotspot ${h.below ? 'label-below' : ''} ${active === h.id ? 'is-active' : ''}`}
-          style={{ ...box(h), ...(h.lx ? { '--lx': h.lx } : {}) }}
+          data-id={h.id}
+          style={{ ...box(h), '--k': h.k, ...(h.lx ? { '--lx': h.lx } : {}) }}
           aria-label={`Open ${h.label}`}
           onPointerEnter={() => setHover(h.id)}
           onPointerLeave={() => setHover(null)}

@@ -8,6 +8,12 @@ import { PAGES, urlFor } from './seo';
 const IDS = HOTSPOTS.map((h) => h.id);
 const TITLES = { tech: 'Tech', about: 'About', art: 'Art', contact: 'Contact' };
 const MENU = ['tech', 'about', 'art', 'contact'];
+const CARD_LINES = {
+  tech: 'RichAPI, TexAu and Visalaw.ai',
+  about: 'Background, skills and education',
+  art: 'PellucidWorks paintings',
+  contact: 'Let\u2019s grab a coffee',
+};
 
 function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -184,7 +190,10 @@ function Contact() {
         For art, you can also DM {art.handle}.
       </p>
       <div className="contact-row">
-        <a className="btn" href={`mailto:${email}`}>{email}</a>
+        {profile.links.calendar && (
+          <a className="btn" href={profile.links.calendar} target="_blank" rel="noreferrer">Book a call ↗</a>
+        )}
+        <a className={profile.links.calendar ? 'btn-ghost' : 'btn'} href={`mailto:${email}`}>{email}</a>
         <button className="btn-ghost" onClick={copy}>{copied ? 'Copied ✓' : 'Copy email'}</button>
       </div>
       <ul className="socials">
@@ -210,12 +219,7 @@ export default function App({ initialPanel = null }) {
   // On wide screens, shrink the scene into the space left of the open panel
   // (instead of hiding the clicked object behind it).
   const stageRef = useRef(null);
-  // On phones the scene is wider than the screen; start centred on her.
-  const scrollRef = useRef(null);
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (el && el.scrollWidth > el.clientWidth) el.scrollLeft = (el.scrollWidth - el.clientWidth) * 0.55;
-  }, []);
+
   useEffect(() => {
     const fit = () => {
       const stage = stageRef.current;
@@ -277,10 +281,29 @@ export default function App({ initialPanel = null }) {
       </header>
 
       <main className="desk" aria-label="Interactive desk">
-        <div className="desk-scroll" ref={scrollRef}>
+        <div className="desk-scroll">
           <Scene active={active} onOpen={handleOpen} />
         </div>
       </main>
+
+      {/* Phones: big section cards under the scene */}
+      <nav className="cards" aria-label="Sections">
+        {MENU.map((id) => (
+          <a
+            key={`card-${id}`}
+            href={`/${id}`}
+            className={`card card-${id}`}
+            onClick={(e) => {
+              if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+              e.preventDefault();
+              handleOpen(id, e.currentTarget);
+            }}
+          >
+            <span className="card-title">{TITLES[id]}</span>
+            <span className="card-line">{CARD_LINES[id]}</span>
+          </a>
+        ))}
+      </nav>
 
       <footer className="foot">
         <span>© {new Date().getFullYear()} Bhakti Ghaghda · {profile.location}</span>

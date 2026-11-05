@@ -53,7 +53,7 @@ button { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--ultramarine); outline-offset: 3px; border-radius: 4px; }
 
 /* ---------- stage ---------- */
-.stage { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; grid-template-columns: minmax(0, 1fr); }
+.stage { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto auto; grid-template-columns: minmax(0, 1fr); }
 .topbar {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 24px;
   padding: 22px var(--gutter) 0; position: relative; z-index: 5;
@@ -123,55 +123,30 @@ button { font: inherit; color: inherit; }
   100% { stroke-dashoffset: -1; opacity: 0; transform: translateY(-10px); }
 }
 
-/* plant: on hover it turns green and sways from the base of its stems */
-.illo .plant { transform-box: fill-box; transform-origin: 50% 100%; }
-.illo .plant [pathLength] { transition: color 0.4s ease, fill 0.4s ease; }
-.illo .plant:hover { color: var(--leaf); animation: sway 2.6s ease-in-out infinite; }
+/* Layers: plant (behind) < drawing < lamp. Only the plant and HTML controls take pointer events. */
+.illo-main, .illo-plant { pointer-events: none; }
+.illo-plant .plant { pointer-events: visiblePainted; cursor: default; }
+
+/* plant: turns green on hover */
+.illo .plant [pathLength] { transition: color 0.5s ease, fill 0.5s ease; }
+.illo .plant:hover { color: var(--leaf); }
 .illo .plant:hover ellipse { fill: color-mix(in srgb, var(--leaf) 26%, var(--paper)); }
-@keyframes sway { 0%, 100% { transform: rotate(0deg); } 30% { transform: rotate(2.2deg); } 70% { transform: rotate(-1.8deg); } }
 
-/* wilting: leaves droop around their stem point and yellow a little; watering brings them back */
-.illo .leaf {
-  transform-box: view-box; transform-origin: var(--ox) var(--oy);
-  transition: transform 2.2s cubic-bezier(.45,0,.25,1);
+/* clickable objects: one gentle pop each after the drawing finishes; red on hover */
+.illo .obj {
+  transform-box: fill-box; transform-origin: 50% 70%;
+  animation: pop 0.9s cubic-bezier(.3,1.5,.5,1) both;
+  animation-delay: calc(1.9s + var(--k) * 0.28s);
 }
-.illo .leaf [pathLength] { transition: fill 1.6s ease, color 0.4s ease; }
-.plant-wilted .illo .leaf { transform: rotate(var(--r)); }
-.plant-wilted .illo .plant ellipse { fill: color-mix(in srgb, var(--ochre) 30%, var(--paper)); }
-.plant-revived .illo .leaf { transition: transform 0.8s cubic-bezier(.3,1.7,.5,1); }
-.plant-revived .illo .plant { color: var(--leaf); animation: sway 1.8s ease-in-out 2; }
-.plant-revived .illo .plant ellipse { fill: color-mix(in srgb, var(--leaf) 26%, var(--paper)); }
-
-/* watering can */
-.can {
-  position: absolute; z-index: 3; padding: 0; border: 0; background: none; cursor: grab;
-  touch-action: none; color: var(--ink);
-  transition: left 0.6s cubic-bezier(.3,.7,.3,1), top 0.6s cubic-bezier(.3,.7,.3,1);
-  animation: can-in 0.6s ease 1.5s both;
-}
-@keyframes can-in { from { opacity: 0; } }
-.can.is-dragging { cursor: grabbing; transition: none; }
-.can:focus-visible { outline: 2px dashed var(--leaf); outline-offset: 4px; border-radius: 8px; }
-.can-art { display: block; width: 100%; height: 100%; overflow: visible; transition: transform 0.35s ease; transform-origin: 50% 50%; }
-.can-art path { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: var(--paper); }
-.can-art path[fill='none'] { fill: none; }
-.can:hover .can-art, .can.is-dragging .can-art { color: var(--leaf); }
-.can.is-pouring .can-art { transform: rotate(38deg); }
-.can.is-nudging .can-art { animation: nudge 3.2s ease-in-out 1s infinite; }
-@keyframes nudge { 0%, 82%, 100% { transform: rotate(0); } 86% { transform: rotate(-9deg); } 90% { transform: rotate(7deg); } 94% { transform: rotate(-4deg); } }
-.drops { position: absolute; width: 0; height: 0; pointer-events: none; }
-.drops i {
-  position: absolute; left: calc((var(--i) - 2) * 4px); top: 0; width: 2.5px; height: 9px; border-radius: 2px;
-  background: var(--ultramarine); opacity: 0;
-}
-.can.is-pouring .drops i { animation: drop 0.6s linear infinite; animation-delay: calc(var(--i) * 0.11s); }
-@keyframes drop { 0% { opacity: 0; transform: translateY(0); } 15% { opacity: 0.9; } 100% { opacity: 0; transform: translateY(46px); } }
-
-/* hovered / open object turns vermilion */
+@keyframes pop { 0%, 100% { transform: scale(1); } 45% { transform: scale(1.09); } }
 .scene[data-hover='tech'] .obj-tech,
 .scene[data-hover='art'] .obj-art,
 .scene[data-hover='about'] .obj-about,
-.scene[data-hover='contact'] .obj-contact { color: var(--vermilion); stroke-width: 2; }
+.scene[data-hover='contact'] .obj-contact { color: var(--vermilion); }
+.scene[data-hover='tech'] .obj-tech [pathLength],
+.scene[data-hover='art'] .obj-art [pathLength],
+.scene[data-hover='about'] .obj-about [pathLength],
+.scene[data-hover='contact'] .obj-contact [pathLength] { stroke-width: 2; }
 
 /* lamp */
 .illo-lamp path, .illo-lamp ellipse { stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
@@ -191,37 +166,33 @@ button { font: inherit; color: inherit; }
 }
 .lamp-hit:focus-visible { outline: 2px dashed var(--ink); outline-offset: 2px; }
 
-/* hotspots */
+/* hotspots: labels are always visible but quiet; they go solid on hover */
 .hotspot {
   position: absolute; background: transparent; border: 0; padding: 0; cursor: pointer; border-radius: 14px;
 }
 .hotspot:focus-visible { outline: 2px dashed var(--vermilion); outline-offset: 4px; }
 .hotspot-label {
-  position: absolute; left: var(--lx, 50%); bottom: 100%; transform: translate(-50%, 4px);
-  background: var(--ink); color: var(--paper); font-size: 13px; font-weight: 500; line-height: 1;
-  padding: 7px 12px; border-radius: 999px; white-space: nowrap; pointer-events: none;
-  opacity: 0; transition: opacity 0.25s ease, transform 0.25s ease;
+  position: absolute; left: var(--lx, 50%); bottom: 100%; transform: translate(-50%, -6px);
+  background: var(--paper); color: var(--ink-2); font-size: 12px; font-weight: 500; line-height: 1; letter-spacing: 0.02em;
+  padding: 6px 11px; border-radius: 999px; white-space: nowrap; pointer-events: none;
+  border: 1px solid var(--line);
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.25s ease;
+  animation: label-in 0.5s ease both; animation-delay: calc(2s + var(--k, 0) * 0.28s);
 }
-.hotspot-label::after { content: ' →'; }
-.label-below .hotspot-label { bottom: auto; top: 100%; transform: translate(-50%, -4px); }
+@keyframes label-in { from { opacity: 0; } }
+.hotspot-label::after { content: ' →'; opacity: 0.6; }
+.label-below .hotspot-label { bottom: auto; top: 100%; transform: translate(-50%, 6px); }
 .hotspot:hover .hotspot-label,
 .hotspot:focus-visible .hotspot-label,
-.hotspot.is-active .hotspot-label,
-.touring .hotspot-label { opacity: 1; transform: translate(-50%, -8px); }
+.hotspot.is-active .hotspot-label { background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translate(-50%, -9px); }
 .label-below:hover .hotspot-label,
 .label-below:focus-visible .hotspot-label,
-.label-below.is-active .hotspot-label,
-.touring .label-below .hotspot-label { transform: translate(-50%, 8px); }
-@media (hover: none) {
-  .hotspot-label { opacity: 1; transform: translate(-50%, -6px); font-size: 12px; padding: 6px 10px; }
-  .label-below .hotspot-label { transform: translate(-50%, 6px); }
-}
+.label-below.is-active .hotspot-label { transform: translate(-50%, 9px); }
 
 @media (prefers-reduced-motion: reduce) {
   .illo [pathLength], .illo [pathLength][fill='currentColor'], .illo [pathLength].eye { animation: none; stroke-dashoffset: 0; fill-opacity: 1; }
   .illo .steam { display: none; }
-  .illo .plant, .plant-revived .illo .plant, .can-art { animation: none !important; }
-  .illo .leaf { transition: none; }
+  .illo .obj, .hotspot-label { animation: none !important; }
   .illo-lamp.swing .lamp-swing, .illo-lamp .bulb { animation: none !important; }
   .desk, .panel, .scrim { transition: none !important; }
 }
@@ -332,23 +303,39 @@ button { font: inherit; color: inherit; }
 .socials a:hover { border-bottom-style: solid; border-color: var(--vermilion); }
 
 /* ---------- small screens ---------- */
-@media (max-width: 720px) {
-  .topbar { flex-direction: column; gap: 14px; padding-top: 18px; }
-  .menu { width: 100%; justify-content: space-between; }
-  .menu a { padding: 6px 8px; }
-  .desk { justify-content: flex-start; padding: 20px 0 0; }
-  .desk-scroll {
-    display: block; overflow-x: auto; overflow-y: hidden; scrollbar-width: none;
-    padding: 34px 0 6px; -webkit-overflow-scrolling: touch;
-  }
-  .desk-scroll::-webkit-scrollbar { display: none; }
-  .scene { width: 160vw; margin: 0 6vw; }
+/* phone cards: hidden on larger screens */
+.cards { display: none; }
 
+@media (max-width: 720px) {
+  .stage { grid-template-rows: auto auto auto 1fr; }
+  .foot { align-self: end; }
+  .topbar { padding-top: 18px; align-items: center; }
+  .hotspot[data-id='contact'] .hotspot-label { left: auto; right: -2px; transform: translate(0, -6px); }
+  .hotspot[data-id='contact']:hover .hotspot-label,
+  .hotspot[data-id='contact'].is-active .hotspot-label { transform: translate(0, -9px); }
+  .menu a { display: none; }
+  .name { font-size: 30px; }
+  .roles { font-size: 13px; margin-top: 6px; }
+  .desk { justify-content: flex-start; padding: 26px 8px 0; }
+  .scene { width: 100%; }
+  .hotspot-label { font-size: 11px; padding: 5px 8px; }
+  .cards {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 22px var(--gutter) 8px;
+  }
+  .card {
+    display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--ink);
+    padding: 14px 14px 13px; border: 1px solid var(--line); border-radius: 14px; background: var(--paper);
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .card:active { background: var(--paper-2); border-color: var(--ink-2); }
+  .card-title { font-family: var(--serif); font-size: 20px; line-height: 1.1; }
+  .card-title::after { content: ' →'; font-family: var(--sans); font-size: 14px; color: var(--muted); }
+  .card-line { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
   .panel {
     top: auto; left: 0; width: 100%; height: 90svh; border-left: 0; border-top: 1px solid var(--line);
     border-radius: 20px 20px 0 0; transform: translateY(102%); box-shadow: 0 -20px 50px -30px rgba(0,0,0,0.4);
   }
-  .panel-head { padding: 14px 20px; }
-  .panel-body { padding: 24px 20px 48px; }
+  .panel-head { padding: 12px 14px 12px 10px !important; }
+  .panel-body { padding: 22px 20px 48px; }
   .scrim { background: color-mix(in srgb, var(--ink) 25%, transparent); }
 }
