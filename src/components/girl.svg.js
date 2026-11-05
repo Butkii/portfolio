@@ -12,13 +12,6 @@ export const MUG = { x: 367, y: 206 };
 export const EYE = { x: 190, y: 120 };
 export const LAMP = { x: 300, y: 94 };
 
-// Ink dots around the lantern in the easel painting (a nod to pointillism).
-const halo = Array.from({ length: 12 }, (_, i) => {
-  const a = (i / 12) * Math.PI * 2;
-  const r = 15 + (i % 3) * 4;
-  return { t: 'circle', a: { cx: (-65 + Math.cos(a) * r).toFixed(1), cy: (186 + Math.sin(a) * r * 0.9).toFixed(1), r: 1.2, class: 'obj-art' }, fill: 'ink', line: true, w: 0.3 };
-});
-
 const S = [
   // easel (Art)
   { t: 'path', a: { d: 'M-62 116 L-58 384', class: 'obj-art' }, line: true, fill: 'none' },
@@ -29,7 +22,6 @@ const S = [
   { t: 'path', a: { d: 'M-74 176 L-56 176 L-53 196 L-77 196 Z', class: 'obj-art' }, line: true },
   { t: 'path', a: { d: 'M-77 176 L-65 166 L-53 176 M-65 166 L-65 161', class: 'obj-art' }, line: true, fill: 'none' },
   { t: 'path', a: { d: 'M-46 158 q4 -4 8 0 q4 -4 8 0', class: 'obj-art' }, line: true, fill: 'none' },
-  ...halo,
 
   // framed diploma on the wall (About)
   { t: 'path', a: { d: 'M64 28 L78 14 L92 28', class: 'obj-about' }, line: true, fill: 'none' },
@@ -38,13 +30,16 @@ const S = [
   { t: 'path', a: { d: 'M66 56 L78 50 L90 56 L78 62 Z', class: 'obj-about' }, line: true },
   { t: 'path', a: { d: 'M70 59 L70 66 Q78 70 86 66 L86 59 M90 56 L90 66', class: 'obj-about' }, line: true, fill: 'none' },
 
-  // floor plant
-  { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302', class: 'plant' }, line: true, fill: 'none' },
-  { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)', class: 'plant' }, line: true },
-  { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)', class: 'plant' }, line: true },
-  { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)', class: 'plant' }, line: true },
-  { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5, class: 'plant' }, line: true },
-  { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)', class: 'plant' }, line: true },
+  // floor plant: turns green and sways from the base of its stems on hover (grouped so it moves as one)
+  { group: 'plant', children: [
+    { t: 'rect', a: { x: 10, y: 226, width: 112, height: 104, class: 'plant-hit' }, hit: true },
+    { t: 'path', a: { d: 'M68 330 Q52 286 32 268 M68 330 Q64 280 76 240 M68 330 Q88 292 108 280 M68 330 Q46 306 24 302' }, line: true, fill: 'none' },
+    { t: 'ellipse', a: { cx: 34, cy: 268, rx: 14, ry: 6, transform: 'rotate(35 34 268)' }, line: true },
+    { t: 'ellipse', a: { cx: 76, cy: 242, rx: 6, ry: 15, transform: 'rotate(10 76 242)' }, line: true },
+    { t: 'ellipse', a: { cx: 106, cy: 280, rx: 14, ry: 6, transform: 'rotate(-20 106 280)' }, line: true },
+    { t: 'ellipse', a: { cx: 26, cy: 302, rx: 13, ry: 5 }, line: true },
+    { t: 'ellipse', a: { cx: 52, cy: 292, rx: 5, ry: 12, transform: 'rotate(-40 52 292)' }, line: true },
+  ] },
   { t: 'path', a: { d: 'M42 376 L52 330 L84 330 L94 376 Z' }, line: true },
 
   // chair
@@ -96,12 +91,17 @@ const S = [
 
 const attrs = (a) => Object.entries(a).map(([k, v]) => `${k}="${v}"`).join(' ');
 
-export const LINE_MARKUP = S.filter((s) => s.line)
-  .map((s, i) => {
-    const fill = s.fill === 'none' ? 'none' : s.fill === 'ink' ? 'currentColor' : 'var(--paper)';
-    const w = s.w ? ` stroke-width="${s.w}"` : '';
-    return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(i * 0.7)}"/>`;
-  })
+const shape = (s, i) => {
+  if (s.hit) return `<${s.t} ${attrs(s.a)} fill="transparent" stroke="none"/>`;
+  const fill = s.fill === 'none' ? 'none' : s.fill === 'ink' ? 'currentColor' : 'var(--paper)';
+  const w = s.w ? ` stroke-width="${s.w}"` : '';
+  return `<${s.t} ${attrs(s.a)} fill="${fill}"${w} pathLength="1" style="--d:${Math.round(i * 0.7)}"/>`;
+};
+
+export const LINE_MARKUP = S.filter((s) => s.line || s.group)
+  .map((s, i) =>
+    s.group ? `<g class="${s.group}">${s.children.map((c, j) => shape(c, i + j)).join('')}</g>` : shape(s, i)
+  )
   .join('');
 
 // Warm light, rendered behind the drawing so paper-filled shapes sit on top.
